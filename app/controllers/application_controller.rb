@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
     include ActionController::RequestForgeryProtection
 
     protect_from_forgery with: :exception
-
     
     before_action :snake_case_params, :attach_authenticity_token
 
@@ -29,8 +28,9 @@ class ApplicationController < ActionController::API
     end
 
     def require_logged_in
+        p current_user
         if !logged_in?
-            render json: {errors: ['Must be logged in to do that']}, status: unauthorized
+            render json: {errors: ['Must be logged in to do that']}, status: 401
         end 
     end 
 
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::API
             logger.error "\n#{@message}:\n\t#{@stack.join("\n\t")}\n"
         end
     end
-    
+
     def attach_authenticity_token
         headers['X-CSRF-Token'] = masked_authenticity_token(session)
     end
