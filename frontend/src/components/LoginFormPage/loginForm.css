@@ -1,0 +1,54 @@
+/* div {
+    background-color: white;
+} */
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#text-logo {
+    padding: 12px;
+}
+
+#login-form {
+    height: 100%
+}
+
+.login-page {
+    background-color: white;
+    color: black;
+    padding: 12px;
+}
+
+
+
+hr {
+    display: flex;
+    flex-grow: 1;
+}
+
+
+h1 {
+    color: black;
+}
+
+p {
+    color: black
+}
+
+form {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* height: 100vh; */
+
+}
+
+#sign-in {
+    background-color: #4a154b;
+    color: white;
+}

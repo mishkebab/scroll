@@ -10,7 +10,7 @@ function SignupForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [title, setTitle] = useState('')
-    const [fullName, setFullName] = useState('')
+    const [full_name, setFullName] = useState('')
     const [errors, setErrors] = useState([])
 
     if (sessionUser) return <Redirect to="/" />
@@ -18,7 +18,7 @@ function SignupForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(sessionActions.signup({ email, password, title, fullName }))
+        return dispatch(sessionActions.signup({ email, password, title, full_name }))
             .catch(async (res) => {
                 let data;
                 try {
@@ -32,28 +32,32 @@ function SignupForm() {
             })
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <ul>
-                {errors.map(error => <li key={error}>{error}</li>)}
-            </ul>
-            <label>
-                Email
-                <input value={email} onChange={(e) => setEmail(e.target.value)} required/>
-            </label>
-            <label>
-                Password
-                <input value={password} onChange={(e) => setPassword(e.target.value)} required/>
-            </label>
-            <label>
-                Full Name
-                <input value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
-            </label>
-            <label>
-                Title
-                <input value={title} onChange={(e) => setTitle(e.target.value)} required/>
-            </label>
-            <button type="submit">Sign Up</button>
-        </form>
+        <>
+            <div class="form-container">
+                <h1 class="form-heading">Sign up for Scroll</h1>
+                <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
+                <form onSubmit={handleSubmit}>
+                    <ul>
+                        {errors.map(error => <li key={error}>{error}</li>)}
+                    </ul>
+                    <label>
+                        <input class="signup-form-input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@work-email.com" required/>
+                    </label>
+                    <label>
+                        <input class="signup-form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" required/>
+                    </label>
+                    <label>
+                        <input class="signup-form-input" value={full_name} onChange={(e) => setFullName(e.target.value)} placeholder="display name" required/>
+                    </label>
+                    <label>
+                        <input class="signup-form-input" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title (optional)"/>
+                    </label>
+                    <button type="submit" class="signup-form-button">Sign up with Email</button>
+                </form>
+                <span class="span-or">or</span>
+                <button class="signup-form-button">Try a Demo</button>
+            </div>
+        </>
     )
 }
 
