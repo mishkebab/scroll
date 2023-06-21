@@ -10,15 +10,17 @@ function SignupForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [title, setTitle] = useState('')
-    const [full_name, setFullName] = useState('')
+    const [display_name, setDisplayName] = useState('')
     const [errors, setErrors] = useState([])
 
     if (sessionUser) return <Redirect to="/" />
 
     const handleSubmit = (e) => {
+        // debugger
         e.preventDefault();
+
         setErrors([]);
-        return dispatch(sessionActions.signup({ email, password, title, full_name }))
+        return dispatch(sessionActions.signup({ email, password, display_name, title }))
             .catch(async (res) => {
                 let data;
                 try {
@@ -47,7 +49,7 @@ function SignupForm() {
                         <input class="signup-form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" required/>
                     </label>
                     <label>
-                        <input class="signup-form-input" value={full_name} onChange={(e) => setFullName(e.target.value)} placeholder="display name" required/>
+                        <input class="signup-form-input" value={display_name} onChange={(e) => setDisplayName(e.target.value)} placeholder="display name" required/>
                     </label>
                     <label>
                         <input class="signup-form-input" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title (optional)"/>

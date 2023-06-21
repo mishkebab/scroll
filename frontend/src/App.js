@@ -4,6 +4,8 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupForm from './components/SignupPage';
 import Navigation from './components/Navigation';
 import HomePage from './components/HomePage/homePage';
+import NavBarUser from './components/NavBarUser';
+import UserDashboard from './components/UserDashboard';
 
 function App() {
   return (
@@ -18,6 +20,10 @@ function App() {
         </Route>
         <Route path="/signup">
           <SignupForm />
+        </Route>
+        <Route path="/user-dashboard">
+          <NavBarUser />
+          <UserDashboard />
         </Route>
       </Switch>
     </>

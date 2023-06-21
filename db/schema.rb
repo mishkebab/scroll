@@ -10,14 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_154331) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_21_025110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "channels", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "workspace_id", null: false
+    t.bigint "owner_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_channels_on_name", unique: true
+    t.index ["owner_id"], name: "index_channels_on_owner_id"
+    t.index ["workspace_id"], name: "index_channels_on_workspace_id"
+  end
+
+  create_table "direct_messages", force: :cascade do |t|
+    t.bigint "workspace_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workspace_id"], name: "index_direct_messages_on_workspace_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "author_id", null: false
+    t.string "messageable_type", null: false
+    t.bigint "messageable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_messages_on_author_id"
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "display_name"
-    t.string "full_name", null: false
+    t.string "display_name", null: false
     t.string "title"
     t.string "password_digest", null: false
     t.string "session_token", null: false
@@ -27,4 +56,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_154331) do
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
+  create_table "workspaces", force: :cascade do |t|
+    t.string "name"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_workspaces_on_name", unique: true
+    t.index ["owner_id"], name: "index_workspaces_on_owner_id"
+  end
+
+  add_foreign_key "channels", "users", column: "owner_id"
+  add_foreign_key "channels", "workspaces"
+  add_foreign_key "direct_messages", "workspaces"
+  add_foreign_key "messages", "users", column: "author_id"
+  add_foreign_key "workspaces", "users", column: "owner_id"
 end

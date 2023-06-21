@@ -4,6 +4,7 @@ const SET_CURRENT_USER = 'session/setCurrentUser';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 
 const setCurrentUser = (user) => {
+    // debugger
     return {
     type: SET_CURRENT_USER,
     payload: user
@@ -28,6 +29,7 @@ const storeCurrentUser = user => {
 
 
 export const login = ({ email, password }) => async dispatch => {
+    // debugger
     const response = await csrfFetch("/api/session", {
         method: "POST",
         body: JSON.stringify({ email, password })
@@ -38,10 +40,11 @@ export const login = ({ email, password }) => async dispatch => {
     return response;
 };
 
-export const signup = ({ email, password, full_name, title }) => async dispatch => {
+export const signup = ({ email, password, display_name, title }) => async dispatch => {
+    // debugger
     const response = await csrfFetch("/api/users", {
         method: "POST",
-        body: JSON.stringify({ email, password, full_name, title })
+        body: JSON.stringify({ email, password, display_name, title })
     });
     const data = await response.json();
     storeCurrentUser(data.user);
@@ -72,6 +75,7 @@ user: JSON.parse(sessionStorage.getItem("currentUser"))
 };
 
 const sessionReducer = (state = initialState, action) => {
+    // debugger
     switch (action.type) {
     case SET_CURRENT_USER:
         return { ...state, user: action.payload };

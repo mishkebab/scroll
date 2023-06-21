@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './loginForm.css'
 import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
 
 
 function LoginFormPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,6 +32,13 @@ function LoginFormPage() {
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
             });
+    }
+
+    const loginDemo = () => {
+      setEmail('hermione@hogwarts.edu');
+      setPassword('password')
+      dispatch(sessionActions.login({ email, password }))
+      // history.push("/");
     }
 
   return (
@@ -74,7 +82,7 @@ function LoginFormPage() {
           <button type="submit" class="signup-form-button">Sign In With Email</button>
         </form>
         <span class="span-or">or</span>
-        <button class="signup-form-button">Try a Demo</button>
+        <button class="signup-form-button" onClick={loginDemo}>Try a Demo</button>
       </div>
     </>
   );

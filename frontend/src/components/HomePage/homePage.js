@@ -24,7 +24,7 @@ const HomePage = () => {
                                 <span>{sessionUser.title}</span>
                             </div>
                         </div>
-                        <a class="welcome-user-launch-button">Launch Scroll</a>
+                        <a class="welcome-user-launch-button" href="/user-dashboard">Launch Scroll</a>
                     </div>
                 </div>
             </div>

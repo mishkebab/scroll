@@ -18,21 +18,62 @@ ApplicationRecord.transaction do
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:
     User.create!(
-      full_name: 'Hermione Granger', 
-      display_name: 'hermione',
-      title: 'student',
+      display_name: 'Hermione',
+      title: 'Student',
       email: 'hermione@hogwarts.edu', 
       password: 'password'
     )
-  
-    # More users
-    # 10.times do 
-    #   User.create!({
-    #     username: Faker::Internet.unique.username(specifier: 3),
-    #     email: Faker::Internet.unique.email,
-    #     password: 'password'
-    #   }) 
-    # end
-  
+
+    User.create!(
+        display_name: 'Dumbledore',
+        title: 'Headmaster of Hogwarts',
+        email: 'dumbledore@hogwarts.edu', 
+        password: 'password'
+    )
+
+    User.create!(
+        display_name: 'Snape',
+        title: 'Professor of Potions',
+        email: 'snape@hogwarts.edu', 
+        password: 'password'
+    )
+
+    puts "Creating workspaces..."
+
+
+    Workspace.create!(
+        name: 'Hogwarts', 
+        owner_id: 2
+    )
+
+    Workspace.create!(
+        name: 'Muggle World', 
+        owner_id: 1
+    )
+
+    puts "Creating channels..."
+
+    Channel.create!(
+        name: 'Gryffindor',
+        owner_id: 2,
+        workspace_id: 1,
+        description: "Courage, Chivalry, and Determination"
+    )
+
+    Channel.create!(
+        name: 'Slytherin',
+        owner_id: 3,
+        workspace_id: 1,
+        description: "Ambition, Cunning, and Resourcefulness"
+    )
+
+    Channel.create!(
+        name: 'Kings Cross Station',
+        owner_id: 1,
+        workspace_id: 2,
+        description: "To discuss the weird disappearances are happening here..."
+    )
+
+
     puts "Done!"
-  end
+end
