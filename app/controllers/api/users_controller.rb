@@ -3,13 +3,15 @@ class Api::UsersController < ApplicationController
     
     before_action :require_logged_out
 
-    def show
+    # def show
         
-    end 
+    # end 
 
     def create
         # debugger
+        p Workspace.all
         @user = User.new(user_params)
+        @user.workspaces = Workspace.all
 
         if @user.save
             login!(@user)

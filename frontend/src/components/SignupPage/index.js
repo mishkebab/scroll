@@ -57,7 +57,7 @@ function SignupForm() {
                     <button type="submit" class="signup-form-button">Sign up with Email</button>
                 </form>
                 <span class="span-or">or</span>
-                <button class="signup-form-button">Try a Demo</button>
+                <button class="signup-form-button" onClick>Try a Demo</button>
             </div>
         </>
     )

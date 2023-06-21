@@ -14,9 +14,10 @@ ApplicationRecord.transaction do
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
+
   
     puts "Creating users..."
-    # Create one user with an easy to remember username, email, and password:
+
     User.create!(
       display_name: 'Hermione',
       title: 'Student',
@@ -28,13 +29,6 @@ ApplicationRecord.transaction do
         display_name: 'Dumbledore',
         title: 'Headmaster of Hogwarts',
         email: 'dumbledore@hogwarts.edu', 
-        password: 'password'
-    )
-
-    User.create!(
-        display_name: 'Snape',
-        title: 'Professor of Potions',
-        email: 'snape@hogwarts.edu', 
         password: 'password'
     )
 
@@ -50,6 +44,14 @@ ApplicationRecord.transaction do
         name: 'Muggle World', 
         owner_id: 1
     )
+
+    User.create!(
+        display_name: 'Snape',
+        title: 'Professor of Potions',
+        email: 'snape@hogwarts.edu', 
+        password: 'password'
+    )
+
 
     puts "Creating channels..."
 

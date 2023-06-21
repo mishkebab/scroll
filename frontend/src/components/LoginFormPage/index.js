@@ -8,7 +8,6 @@ import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
 
 function LoginFormPage() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,10 +34,12 @@ function LoginFormPage() {
     }
 
     const loginDemo = () => {
-      setEmail('hermione@hogwarts.edu');
-      setPassword('password')
-      dispatch(sessionActions.login({ email, password }))
-      // history.push("/");
+      console.log("in button");
+      setEmail("misha@gmail.com");
+      console.log(email);
+      setPassword("password");
+      console.log(password);
+      dispatch(sessionActions.login({ email, password }));
     }
 
   return (
@@ -47,19 +48,19 @@ function LoginFormPage() {
         <SlackSVG/>
         <h1 id="text-logo">scroll</h1>
       </div>
-      <div class="form-container">
+      <div className="form-container">
         <form onSubmit={handleSubmit} id="login-form">
-          <h1 class="form-heading">Sign in to Scroll</h1>
-          <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
+          <h1 className="form-heading">Sign in to Scroll</h1>
+          <p className="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
           <ul>
             {errors.map(error => <li key={error}>{error}</li>)}
           </ul>
-          <div class="login-page">
+          <div className="login-page">
             <hr></hr>
           </div>
           <label>
             <input
-              class="signup-form-input"
+              className="signup-form-input"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -70,7 +71,7 @@ function LoginFormPage() {
           <br />
           <label>
             <input
-              class="signup-form-input"
+              className="signup-form-input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -79,10 +80,10 @@ function LoginFormPage() {
             />
           </label>
           <br />
-          <button type="submit" class="signup-form-button">Sign In With Email</button>
+          <button type="submit" className="signup-form-button">Sign In With Email</button>
         </form>
-        <span class="span-or">or</span>
-        <button class="signup-form-button" onClick={loginDemo}>Try a Demo</button>
+        <span className="span-or">or</span>
+        <button className="signup-form-button" onClick={loginDemo}>Try a Demo</button>
       </div>
     </>
   );

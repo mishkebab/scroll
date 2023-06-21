@@ -15,30 +15,30 @@ function Navigation() {
     }
 
     return (sessionUser) ? (
-        <div class="nav-bar">
+        <div className="nav-bar">
             <ul>
-                <a class="nav-bar-link" href="https://www.google.com">Portfolio</a>
-                <a class="nav-bar-link" href="https://www.linkedin.com/in/mishabansal/">LinkedIn</a>
-                <a class="nav-bar-link" href="https://github.com/mishkebab">GitHub</a>
+                <a className="nav-bar-link" href="https://www.google.com">Portfolio</a>
+                <a className="nav-bar-link" href="https://www.linkedin.com/in/mishabansal/">LinkedIn</a>
+                <a className="nav-bar-link" href="https://github.com/mishkebab">GitHub</a>
             </ul>
             <ul>
                 <Link to="/">
-                    <button class="nav-demo" onClick={logout} id="nav-logout">Logout</button>
+                    <button className="nav-demo" onClick={logout} id="nav-logout">Logout</button>
                 </Link>
             </ul>
         </div>
     ) : (
-        <div class="nav-bar">
+        <div className="nav-bar">
             <ul>
-                <a class="nav-bar-link" href="https://www.google.com">Portfolio</a>
-                <a class="nav-bar-link" href="https://www.linkedin.com/in/mishabansal/">LinkedIn</a>
-                <a class="nav-bar-link" href="https://github.com/mishkebab">GitHub</a>
+                <a className="nav-bar-link" href="https://www.google.com">Portfolio</a>
+                <a className="nav-bar-link" href="https://www.linkedin.com/in/mishabansal/">LinkedIn</a>
+                <a className="nav-bar-link" href="https://github.com/mishkebab">GitHub</a>
             </ul>
             <ul>
-                <a class="nav-bar-link" href="/login">Log in</a>
+                <a className="nav-bar-link" href="/login">Log in</a>
                 <a id="nav-signup" href="/signup">Sign up Here</a>
                 <Link to="/">
-                    <button class="nav-demo">Try a Demo</button>
+                    <button className="nav-demo">Try a Demo</button>
                 </Link>
             </ul>
         </div>
