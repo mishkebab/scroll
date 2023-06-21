@@ -4,9 +4,9 @@ import './userDashboard.css'
 
 const UserDashboard = () => {
     const sessionUser = useSelector(state => state.session.user)
-    const workspaces = sessionUser.workspaces
-    const channels = sessionUser.channels
-    console.log(workspaces)
+    const workspaces = useSelector(state => state.workspaces)
+    
+    
 
     return (
         <div class="user-dashboard-main">

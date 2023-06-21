@@ -8,6 +8,7 @@ import configureStore from './store';
 import csrfFetch, { restoreCSRF } from './store/csrf';
 import * as sessionActions from './store/session';
 import './reset.css'
+import * as workspaceActions from './store/workspaces'
 
 const store = configureStore();
 
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.store = store;
   window.csrfFetch = csrfFetch;
   window.sessionActions = sessionActions;
+  window.workspaceActions = workspaceActions;
 }
 
 function Root() {

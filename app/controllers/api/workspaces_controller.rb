@@ -8,8 +8,8 @@ class Api::WorkspacesController < ApplicationController
     end 
 
     def show
-        @workspace = Workspace.find_by(name: params[:name])
-        render 'api/workspaces/index'
+        @workspace = Workspace.find(params[:id])
+        render 'api/workspaces/show'
     end 
 
     def create
