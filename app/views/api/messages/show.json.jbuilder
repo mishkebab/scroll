@@ -1,0 +1,1 @@
+json.extract! @message, :content, :messageable_type, :messageable_id, :author_id

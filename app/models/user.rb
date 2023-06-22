@@ -22,18 +22,28 @@ class User < ApplicationRecord
   validates :password_digest, :display_name, presence: true
   validates :password, length: { in: 6..255 }, allow_nil: true
 
-  has_many :workspaces,
-    class_name: 'Workspace',
-    foreign_key: 'owner_id',
-    inverse_of: 'owner',
+  has_many :messages,
+    class_name: 'Message',
+    foreign_key: 'author_id',
+    dependent: :destroy 
+
+  has_many :workspace_subscriptions,
+    dependent: :destroy
+  
+  has_many :direct_message_subscriptions,
     dependent: :destroy
 
+  has_many :channel_subscriptions,
+    dependent: :destroy
+  
+  has_many :conversations,
+    through: :direct_message_subscriptions,
+    dependent: :destroy
+  
   has_many :channels,
-    class_name: 'Channel',
-    foreign_key: 'owner_id',
-    inverse_of: 'owner',
-    dependent: :destroy
-
+    through: :channel_subscriptions,
+    dependent: :destroy 
+  
 
   has_secure_password
 

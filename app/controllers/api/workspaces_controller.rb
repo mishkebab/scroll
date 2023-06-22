@@ -1,6 +1,6 @@
 class Api::WorkspacesController < ApplicationController
     wrap_parameters include: Workspace.attribute_names 
-    before_action :require_logged_in
+    # before_action :require_logged_in
 
     def index
         @workspaces = Workspace.all

@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import HomePage from './components/HomePage/homePage';
 import NavBarUser from './components/NavBarUser';
 import UserDashboard from './components/UserDashboard';
+import Workspace from './components/Workspace/workspace';
 
 function App() {
   return (
@@ -21,9 +22,9 @@ function App() {
         <Route path="/signup">
           <SignupForm />
         </Route>
-        <Route path="/user-dashboard">
+        <Route path="/user/:userId/:workspaceId">
           <NavBarUser />
-          <UserDashboard />
+          <Workspace />
         </Route>
       </Switch>
     </>

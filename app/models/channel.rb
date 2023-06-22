@@ -16,4 +16,12 @@ class Channel < ApplicationRecord
   belongs_to :owner,
     class_name: 'User',
     foreign_key: 'owner_id'
+
+  has_many :channel_subscriptions,
+    dependent: :destroy
+
+  has_many :messages, as: :messageable
+
+  has_many :users,
+    through: :channel_subscriptions
 end

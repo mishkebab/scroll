@@ -9,7 +9,6 @@ class Api::UsersController < ApplicationController
 
     def create
         # debugger
-        p Workspace.all
         @user = User.new(user_params)
         @user.workspaces = Workspace.all
 

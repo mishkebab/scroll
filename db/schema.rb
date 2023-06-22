@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_025110) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_040812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channel_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "channel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["channel_id"], name: "index_channel_subscriptions_on_channel_id"
+    t.index ["user_id"], name: "index_channel_subscriptions_on_user_id"
+  end
 
   create_table "channels", force: :cascade do |t|
     t.string "name", null: false
@@ -24,6 +33,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_025110) do
     t.index ["name"], name: "index_channels_on_name", unique: true
     t.index ["owner_id"], name: "index_channels_on_owner_id"
     t.index ["workspace_id"], name: "index_channels_on_workspace_id"
+  end
+
+  create_table "direct_message_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "direct_message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["direct_message_id"], name: "index_direct_message_subscriptions_on_direct_message_id"
+    t.index ["user_id"], name: "index_direct_message_subscriptions_on_user_id"
   end
 
   create_table "direct_messages", force: :cascade do |t|
@@ -56,6 +74,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_025110) do
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
+  create_table "workspace_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workspace_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_workspace_subscriptions_on_user_id"
+    t.index ["workspace_id"], name: "index_workspace_subscriptions_on_workspace_id"
+  end
+
   create_table "workspaces", force: :cascade do |t|
     t.string "name"
     t.bigint "owner_id", null: false
@@ -65,9 +92,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_025110) do
     t.index ["owner_id"], name: "index_workspaces_on_owner_id"
   end
 
+  add_foreign_key "channel_subscriptions", "channels"
+  add_foreign_key "channel_subscriptions", "users"
   add_foreign_key "channels", "users", column: "owner_id"
   add_foreign_key "channels", "workspaces"
+  add_foreign_key "direct_message_subscriptions", "direct_messages"
+  add_foreign_key "direct_message_subscriptions", "users"
   add_foreign_key "direct_messages", "workspaces"
   add_foreign_key "messages", "users", column: "author_id"
+  add_foreign_key "workspace_subscriptions", "users"
+  add_foreign_key "workspace_subscriptions", "workspaces"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end

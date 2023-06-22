@@ -9,6 +9,8 @@ import csrfFetch, { restoreCSRF } from './store/csrf';
 import * as sessionActions from './store/session';
 import './reset.css'
 import * as workspaceActions from './store/workspaces'
+import * as channelActions from './store/channels'
+import * as messageActions from './store/messages'
 
 const store = configureStore();
 
@@ -17,6 +19,8 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.sessionActions = sessionActions;
   window.workspaceActions = workspaceActions;
+  window.channelActions = channelActions;
+  window.messageActions = messageActions;
 }
 
 function Root() {

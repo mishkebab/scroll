@@ -1,12 +1,21 @@
 import './homePage.css'
+import { useEffect } from 'react';
 import HomePageImage from "./../../assets/sample_homepage.jpeg"
 import WelcomeGIF from "./../../assets/welcome-waving.gif"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
+import { Link } from 'react-router-dom';
+import { fetchWorkspaces } from '../../store/workspaces';
 
 const HomePage = () => {
+    const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    // const workspaces = sessionUser.workspaces
+    
+    useEffect(() => {
+        dispatch(fetchWorkspaces())
+    }, [])
+    
+    const workspaces = useSelector(state => state.workspaces)
    
     return (sessionUser) ? (
         <div className="home-page">
@@ -16,14 +25,19 @@ const HomePage = () => {
                     <h1 className="splash-main-header">Welcome back</h1>
                 </div>
                 <div className="welcome-user-info-container">
-                    <div className="welcome-user-info-title">{`Scroll for ${sessionUser.email}`}</div>
+                    <div className="welcome-user-info-title">{`Workspaces for ${sessionUser.email}`}</div>
                     <div className="welcome-user-subheader">
-                        <div className="welcome-user-details-container">
+                        <div className="welcome-user-choose-workspace">
                             <SlackSVG />
                             <div className="welcome-user-details">
                                 <span>{sessionUser.fullName}</span>
                                 <span>{sessionUser.title}</span>
                             </div>
+                            <ul>
+                                {/* {workspaces.map(workspace =>
+                                    <Link to={`/user/${sessionUser.id}/${workspace.id}`}>{workspace.name}</Link>
+                                )} */}
+                            </ul>
                         </div>
                         <a className="welcome-user-launch-button" href="/user-dashboard">Launch Scroll</a>
                     </div>
@@ -58,3 +72,5 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+// 
