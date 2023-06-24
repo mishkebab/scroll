@@ -36,12 +36,16 @@ class User < ApplicationRecord
   has_many :channel_subscriptions,
     dependent: :destroy
   
-  has_many :conversations,
+  has_many :direct_messages,
     through: :direct_message_subscriptions,
     dependent: :destroy
   
   has_many :channels,
     through: :channel_subscriptions,
+    dependent: :destroy 
+
+  has_many :workspaces,
+    through: :workspace_subscriptions,
     dependent: :destroy 
   
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import './loginForm.css'
 import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
+import { useEffect } from 'react';
 
 
 function LoginFormPage() {
@@ -12,6 +13,10 @@ function LoginFormPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+      console.log("render")
+    })
 
     if (sessionUser) return <Redirect to="/" />;
 
@@ -34,12 +39,7 @@ function LoginFormPage() {
     }
 
     const loginDemo = () => {
-      console.log("in button");
-      setEmail("misha@gmail.com");
-      console.log(email);
-      setPassword("password");
-      console.log(password);
-      dispatch(sessionActions.login({ email, password }));
+      dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
 
   return (

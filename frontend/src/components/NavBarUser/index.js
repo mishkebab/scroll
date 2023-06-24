@@ -2,6 +2,8 @@ import './navBarUser.css'
 import { Link } from 'react-router-dom'
 
 const NavBarUser = () => {
+    
+
     return (
         <div class="user-nav-bar">
             <ul>

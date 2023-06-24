@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import workspacesReducer from './workspaces';
 import channelsReducer from './channels';
 import messagesReducer from './messages';
+import dmsReducer from './dms';
 
 export const rootReducer = combineReducers({
     session: sessionReducer,
     workspaces: workspacesReducer,
     channels: channelsReducer,
-    messages: messagesReducer
+    messages: messagesReducer,
+    dms: dmsReducer
 })
 
 let enhancer;

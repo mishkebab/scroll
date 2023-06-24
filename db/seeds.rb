@@ -32,6 +32,13 @@ ApplicationRecord.transaction do
         password: 'password'
     )
 
+    User.create!(
+        display_name: 'Snape',
+        title: 'Professor of Potions',
+        email: 'snape@hogwarts.edu', 
+        password: 'password'
+    )
+
     puts "Creating workspaces..."
 
 
@@ -45,13 +52,27 @@ ApplicationRecord.transaction do
         owner_id: 1
     )
 
-    User.create!(
-        display_name: 'Snape',
-        title: 'Professor of Potions',
-        email: 'snape@hogwarts.edu', 
-        password: 'password'
+    puts "Creating workspace subscriptions..."
+
+    WorkspaceSubscription.create!(
+        user_id: 1,
+        workspace_id: 1
     )
 
+    WorkspaceSubscription.create!(
+        user_id: 1,
+        workspace_id: 2
+    )
+
+    WorkspaceSubscription.create!(
+        user_id: 2,
+        workspace_id: 1
+    )
+
+    WorkspaceSubscription.create!(
+        user_id: 3,
+        workspace_id: 1
+    )
 
     puts "Creating channels..."
 
@@ -76,6 +97,82 @@ ApplicationRecord.transaction do
         description: "To discuss the weird disappearances are happening here..."
     )
 
+    puts "Creating channel subscriptions..."
+
+    ChannelSubscription.create!(
+        user_id: 1,
+        channel_id:1
+    )
+
+    ChannelSubscription.create!(
+        user_id: 1,
+        channel_id:3
+    )
+
+    ChannelSubscription.create!(
+        user_id: 2,
+        channel_id: 1
+    )
+
+    ChannelSubscription.create!(
+        user_id: 3,
+        channel_id: 2
+    )
+
+    puts "Creating DM Conversations..."
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    puts "Creating DM Conversation Subscriptions..."
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 1,
+        user_id: 1
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 1,
+        user_id: 2
+    )
+
+    puts "Creating messages..."
+
+    Message.create!(
+        content: 'yo this is Snape',
+        author_id: 3,
+        messageable_type: "Channel",
+        messageable_id: 2
+    )
+
+    Message.create!(
+        content: 'yo this is Hermione',
+        author_id: 1,
+        messageable_type: "Channel",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'hi H - this is dumbledore',
+        author_id: 2,
+        messageable_type: "Channel",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'hello Hermione we need the Time-Turner back',
+        author_id: 2,
+        messageable_type: "DirectMessage",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'will return ASAP!',
+        author_id: 1,
+        messageable_type: "DirectMessage",
+        messageable_id: 1
+    )
 
     puts "Done!"
 end

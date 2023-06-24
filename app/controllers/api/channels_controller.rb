@@ -1,7 +1,7 @@
 class Api::ChannelsController < ApplicationController
 
     def index
-        @channels = Channel.all
+        @channels = Workspace.find_by_id(params[:workspace_id]).channels
         render '/api/channels/index'
     end
 

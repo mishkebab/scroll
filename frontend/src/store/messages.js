@@ -1,9 +1,11 @@
+import csrfFetch from "./csrf"
+
 const SET_MESSAGES = "/messages/setMessages"
 const SET_MESSAGE = "/messages/setMessage"
 
-const setMessages = (messages) => ({
+export const setMessages = (messages) => ({
     type: SET_MESSAGES,
-    payload: messages
+    messages
 })
 
 const setMessage = (message) => ({
@@ -19,7 +21,7 @@ export const fetchMessages = () => async(dispatch) => {
 }
 
 export const createMessage = (messageData) => async(dispatch) => {
-    const res = await fetch('/api/messages', {
+    const res = await csrfFetch('/api/messages', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -35,7 +37,7 @@ export const createMessage = (messageData) => async(dispatch) => {
 const messagesReducer = (state={}, action) => {
     switch (action.type) {
         case SET_MESSAGES:
-            return action.payload
+            return action.messages
         case SET_MESSAGE:
             return { ...state, [action.payload.id]: action.payload}
         default:

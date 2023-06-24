@@ -10,12 +10,12 @@ import { fetchWorkspaces } from '../../store/workspaces';
 const HomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
+    const workspaces = useSelector(state => Object.values(state.workspaces))
     
     useEffect(() => {
         dispatch(fetchWorkspaces())
     }, [])
     
-    const workspaces = useSelector(state => state.workspaces)
    
     return (sessionUser) ? (
         <div className="home-page">
@@ -34,9 +34,9 @@ const HomePage = () => {
                                 <span>{sessionUser.title}</span>
                             </div>
                             <ul>
-                                {/* {workspaces.map(workspace =>
+                                {workspaces.map(workspace =>
                                     <Link to={`/user/${sessionUser.id}/${workspace.id}`}>{workspace.name}</Link>
-                                )} */}
+                                )}
                             </ul>
                         </div>
                         <a className="welcome-user-launch-button" href="/user-dashboard">Launch Scroll</a>

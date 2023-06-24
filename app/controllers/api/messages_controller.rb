@@ -1,7 +1,7 @@
 class Api::MessagesController < ApplicationController
     def index
-        @messages = Message.all
-        render 'api/messages/index'
+        # @messages = Message.where(ch)
+        # render 'api/messages/index'
     end
 
     def show
@@ -11,7 +11,7 @@ class Api::MessagesController < ApplicationController
 
     def create
         @message = Message.new(message_params)
-        @message.author_id = current_user.id
+        @message.author = current_user
 
         if !@message.save
             render json: @message.errors.full_messages, status: 422
