@@ -1,1 +1,15 @@
 /* TODO Add site wide styles */
+
+.user-dashboard {
+    background-color: #1B1D21;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.user-dashboard-center {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%
+}

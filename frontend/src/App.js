@@ -5,7 +5,7 @@ import SignupForm from './components/SignupPage';
 import Navigation from './components/Navigation';
 import HomePage from './components/HomePage/homePage';
 import NavBarUser from './components/NavBarUser';
-import Workspace from './components/Workspace/workspace';
+import ChannelBrowser from './components/ChannelBrowser/channelBrowser';
 import Channel from './components/Channel/channel';
 import Chat from './components/Chat/chat';
 import SideBar from './components/SideBar/sideBar';
@@ -15,21 +15,28 @@ function App() {
   return (
     <>
       <Switch>
-        <Route path="/user/:userId/:workspaceId/:channelId">
-          <NavBarUser />
-          <SideBar />
-          <Channel />
-          <Chat />
+        <Route path="/user/:userId/:workspaceId/channel/:channelId">
+            <NavBarUser />
+            <div class="user-dashboard">
+              <SideBar />
+              <div class="user-dashboard-center">
+                <Channel />
+                <Chat />
+              </div>
+            </div>
         </Route>
-        <Route path="/user/:userId/:workspaceId/:dmId">
+        <Route path="/user/:userId/:workspaceId/dm/:dmId">
           <NavBarUser />
           <SideBar />
           <DirectMessage />
           <Chat />
         </Route>
         <Route path="/user/:userId/:workspaceId">
-          <NavBarUser />
-          <Workspace />
+            <NavBarUser />
+          <div class="user-dashboard">
+            <SideBar />
+            <ChannelBrowser />
+          </div>
         </Route>
         <Route path="/login">
           <LoginFormPage />

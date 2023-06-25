@@ -1,0 +1,87 @@
+.sidebar-workspace-name {
+    color: white
+}
+
+.user-sidebar {
+    display: flex;
+    flex-direction: column;
+    /* flex-grow: 1; */
+    height: 100vh;
+    width: 15%;
+    font-size: 15px;
+    color: #a3a3a6;
+    background-color: #19171D;
+    justify-content:space-evenly;
+
+}
+
+.sidebar-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.sidebar-list-header {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    height: 36px;
+    line-height: 28px;
+    cursor: pointer;
+    align-items: center;
+    font-size: 15px;
+    color: #a3a3a6;
+    font-family: Lato;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.sidebar-menu {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 100%; 
+    padding: 8px 0; 
+}
+
+
+.sidebar-list-item-container {
+    text-decoration: none;
+    display: inline-block; /* Ensure the menu items are displayed as blocks */
+    padding: 4px 16px; /* Add padding to the menu items */
+}
+
+.sidebar-list-item {
+    display: flex;
+    padding-left: 29px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.sidebar-hashtag {
+    font-size: 15px;
+    height: 20px;
+    width: 20px;
+    font-weight: 700;
+    font-family: Lato;
+    margin-bottom: 5px;
+    color: #a3a3a6;
+}
+
+.sidebar-item-name {
+    color: #a3a3a6;
+    font-weight: 400;
+    margin-left: 4px; /* Add a margin between the hashtag and item name */
+}
+
+.sidebar-button-image-container {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+}
+
+/* .hidden {
+    display: none !important;
+} */

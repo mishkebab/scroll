@@ -39,6 +39,20 @@ ApplicationRecord.transaction do
         password: 'password'
     )
 
+    User.create!(
+        display_name: 'Luna Lovegood',
+        title: 'Student',
+        email: 'luna@hogwarts.edu', 
+        password: 'password'
+    )
+
+    User.create!(
+        display_name: 'Cho Chang',
+        title: 'Student',
+        email: 'cho@hogwarts.edu', 
+        password: 'password'
+    )
+
     puts "Creating workspaces..."
 
 
@@ -74,6 +88,16 @@ ApplicationRecord.transaction do
         workspace_id: 1
     )
 
+    WorkspaceSubscription.create!(
+        user_id: 4,
+        workspace_id: 1
+    )
+
+    WorkspaceSubscription.create!(
+        user_id: 5,
+        workspace_id: 1
+    )
+
     puts "Creating channels..."
 
     Channel.create!(
@@ -95,6 +119,20 @@ ApplicationRecord.transaction do
         owner_id: 1,
         workspace_id: 2,
         description: "To discuss the weird disappearances are happening here..."
+    )
+
+    Channel.create!(
+        name: 'Ravenclaw',
+        owner_id: 4,
+        workspace_id: 1,
+        description: "Wisdom, Wit, and Intellect"
+    )
+
+    Channel.create!(
+        name: 'Hufflepuff',
+        owner_id: 5,
+        workspace_id: 1,
+        description: "Hard Work, Kindness, and Patience"
     )
 
     puts "Creating channel subscriptions..."
@@ -119,7 +157,25 @@ ApplicationRecord.transaction do
         channel_id: 2
     )
 
+    ChannelSubscription.create!(
+        user_id: 4,
+        channel_id: 4
+    )
+
+    ChannelSubscription.create!(
+        user_id: 5,
+        channel_id: 4
+    )
+
     puts "Creating DM Conversations..."
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
 
     DirectMessage.create!(
         workspace_id: 1

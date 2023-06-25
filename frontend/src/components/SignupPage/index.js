@@ -33,12 +33,17 @@ function SignupForm() {
                 else setErrors([res.statusText]);
             })
     }
+
+    const loginDemo = () => {
+        dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
+    }
+
     return (
         <>
             <div class="form-container">
                 <h1 class="form-heading">Sign up for Scroll</h1>
                 <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
-                <form onSubmit={handleSubmit}>
+                <form class="form-container" onSubmit={handleSubmit}>
                     <ul>
                         {errors.map(error => <li key={error}>{error}</li>)}
                     </ul>
@@ -57,7 +62,7 @@ function SignupForm() {
                     <button type="submit" class="signup-form-button">Sign up with Email</button>
                 </form>
                 <span class="span-or">or</span>
-                <button class="signup-form-button" onClick>Try a Demo</button>
+                <button class="signup-form-button" onClick={loginDemo}>Try a Demo</button>
             </div>
         </>
     )

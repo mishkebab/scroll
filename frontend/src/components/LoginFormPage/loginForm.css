@@ -30,15 +30,15 @@ hr {
 }
 
 
-h1 {
+.form-heading {
     color: black;
 }
 
-p {
+.form-subheading {
     color: black
 }
 
-form {
+#login-form {
     background-color: white;
     display: flex;
     justify-content: center;
