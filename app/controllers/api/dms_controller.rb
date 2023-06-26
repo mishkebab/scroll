@@ -1,7 +1,6 @@
 class Api::DmsController < ApplicationController
     def index
-        @dms = Workspace.find_by_id(params[:workspace_id]).direct_messages
-        p @dms
+        @dms = current_user.direct_messages
         render '/api/dms/index'
     end
 

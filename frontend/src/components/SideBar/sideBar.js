@@ -40,7 +40,6 @@ const SideBar = () => {
     
     const sessionUser = useSelector(state => state.session.user)
     const workspace = useSelector(state => Object.values(state.workspaces))
-    console.log(workspace)
     const channels = useSelector(state => Object.values(state.channels))
     const dms = useSelector(state => Object.values(state.dms))
 
@@ -78,7 +77,7 @@ const SideBar = () => {
                         <a class="sidebar-list-item-container" href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
                                 <span class="sidebar-hashtag">#</span>
-                                <span class="sidebar-item-name">{dm.id}</span>
+                                <span class="sidebar-item-name">{Object.values(dm.users.filter(user => user.id != sessionUser.id).map(user => user.name)).join(", ")}</span>
                             </li>
                         </a>
                     )}

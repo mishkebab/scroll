@@ -10,6 +10,7 @@ import Channel from './components/Channel/channel';
 import Chat from './components/Chat/chat';
 import SideBar from './components/SideBar/sideBar';
 import DirectMessage from './components/DirectMessage/dm';
+import consumer from './consumer';
 
 function App() {
   return (
@@ -27,9 +28,13 @@ function App() {
         </Route>
         <Route path="/user/:userId/:workspaceId/dm/:dmId">
           <NavBarUser />
-          <SideBar />
-          <DirectMessage />
-          <Chat />
+            <div class="user-dashboard">
+              <SideBar />
+              <div class="user-dashboard-center">
+                <DirectMessage />
+                <Chat />
+              </div>
+            </div>
         </Route>
         <Route path="/user/:userId/:workspaceId">
             <NavBarUser />

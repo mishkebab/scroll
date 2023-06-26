@@ -16,6 +16,7 @@ class Api::MessagesController < ApplicationController
         if !@message.save
             render json: @message.errors.full_messages, status: 422
         else
+            ChatChannel.broadcast_to(@message.messageable, @message)
             render 'api/messages/show'
         end 
     end
