@@ -11,7 +11,7 @@
     font-size: 15px;
     color: #a3a3a6;
     background-color: #19171D;
-    justify-content:space-around
+    /* justify-content:space-around */
 
 }
 
@@ -36,19 +36,17 @@
     padding-right: 16px;
 }
 
-.sidebar-menu {
-    position: absolute;
-    top: 100%; 
-    left: 0;
-    width: 100%; 
-    padding: 8px 0; 
-}
-
 
 .sidebar-list-item-container {
     text-decoration: none;
     display: inline-block; /* Ensure the menu items are displayed as blocks */
     padding: 4px 16px; /* Add padding to the menu items */
+}
+
+.sidebar-menu {
+    padding: 8px 0; 
+    color: #a3a3a6;
+    font-size: 15px;
 }
 
 .sidebar-list-item {

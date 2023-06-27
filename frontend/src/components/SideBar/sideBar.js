@@ -12,10 +12,17 @@ import './sideBar.css'
 const SideBar = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
-    console.log(workspaceId)
     const { userId } = useParams();
     const [channelOpen, setChannelOpen] = useState(false);
     const [dmOpen, setDMOpen] = useState(false);
+
+    const toggleChannelVisibility = () => {
+        setChannelOpen(!channelOpen)
+    };
+
+    const toggleDMVisibility = () => {
+        setDMOpen(!dmOpen)
+    };
 
     useEffect(() => {
         dispatch(fetchWorkspace(workspaceId))
@@ -48,43 +55,48 @@ const SideBar = () => {
             {/* <h1 class="sidebar-workspace-name">{workspace[0].name}</h1> */}
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
-                    <button onClick={handleChannelOpen}>
+                    <button onClick={toggleChannelVisibility}>
                         <img src={DownArrow} />
                     </button>
-                    {channelOpen ? (
-                        <ul className="sidebar-menu"> 
+                    <span>Channels</span>
+                    <div class="sidebar-button-image-container hidden">
+                        <img src={PlusButton}/>
+                    </div>
+                </div>
+                <ul className="sidebar-menu"> 
                         {channels.map(channel => 
-                            <a class="sidebar-list-item-container" href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
+                            <a class={`sidebar-list-item-container ${channelOpen ? 'hidden' : ''} `} href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
                                 <li class="sidebar-list-item">
                                     <span class="sidebar-hashtag">#</span>
                                     <span class="sidebar-item-name">{channel.name}</span>
                                 </li>
                             </a>
                         )}
-                        </ul>
-                    ) : null}
-                    <span>Channels</span>
+                </ul>
+            </div>
+            <div class="sidebar-list">
+                <div class="sidebar-list-header">
+                    <button onClick={toggleDMVisibility}>
+                        <img src={DownArrow} />
+                    </button>
+
+                    <span>Direct messages</span>
                     <div class="sidebar-button-image-container hidden">
-                        <img src={PlusButton}/>
+                            <img src={PlusButton}/>
                     </div>
                 </div>
-            </div>
-            <div class="sidebar-list-header">
-                <button onClick={handleDMOpen}>D</button>
-                {dmOpen ? (
-                    <ul className="sidebar-menu"> 
+                <ul className="sidebar-menu"> 
                     {dms.map(dm => 
-                        <a class="sidebar-list-item-container" href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
+                        <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} `} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
                                 <span class="sidebar-hashtag">#</span>
                                 <span class="sidebar-item-name">{Object.values(dm.users.filter(user => user.id != sessionUser.id).map(user => user.name)).join(", ")}</span>
                             </li>
                         </a>
                     )}
-                    </ul>
-                ) : null}
-                <span>Direct messages</span>
+                </ul>
             </div>
+
         </div>
     )
 }

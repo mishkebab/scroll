@@ -33,10 +33,12 @@ export const createMessage = (messageData) => async(dispatch) => {
         },
         body: JSON.stringify(messageData)
     })
-    if (res.ok) {
-        const newMessage = await res.json();
-        dispatch(setMessage(newMessage))
-    }
+    // console.log(res)
+    // if (res.ok) {
+    //     // debugger
+    //     const newMessage = await res.json();
+    //     dispatch(setMessage(newMessage))
+    // }
 }
 
 export const editMessage = (messageData) => async(dispatch) => {

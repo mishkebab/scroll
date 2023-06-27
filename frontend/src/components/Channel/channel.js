@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchChannel } from "../../store/channels";
 import "./channel.css"
-import { editMessage } from "../../store/messages";
+import { editMessage, setMessage } from "../../store/messages";
 import { deleteMessage } from "../../store/messages";
 import consumer from "../../consumer";
+import { setCurrentUser } from "../../store/session";
 
 const Channel = () => {
     const dispatch = useDispatch();
@@ -24,22 +25,18 @@ const Channel = () => {
     }, [])
 
     useEffect(() => {
-        let sub;
-        if (channel) {
-            sub = consumer.subscriptions.create({
-                channel: 'ChatChannel',
-                channel_id: channel.id
-            }, {
-                received: payload => {
-                    switch(payload.type) {
-                        case 'SET_MESSAGE':
-                            console.log(`message received: ${payload.message}`)
-                    }
+        const sub = consumer.subscriptions.create(
+            { channel: 'ChatChannel', id: channelId },
+            {
+                received: ({ message }) => {
+                    console.log('Received message: ', message);
+                    dispatch(setMessage(message));
+                    // dispatch(setCurrentUser(user));
                 }
-            });
-        }
+            }
+        )
         return () => sub?.unsubscribe();
-    }, [channel])
+    }, [channelId, dispatch])
 
     // const { userId } = useParams();
     const sessionUser = useSelector(state => state.session.user)
@@ -71,13 +68,13 @@ const Channel = () => {
                             <strong class="message-feed-author-initial">{message.author.display_name[0]}</strong>
                         </div>
                         <div class="message-feed-item-content">
-                            <div class={`message-feed-item-content-top-wrapped ${isHidden ? 'hidden' : ''} `}>
+                            <div class={`message-feed-item-content-top-wrapped ${isHidden[message.id] ? 'hidden' : ''} `}>
                                 <div class="message-feed-item-content-top">
                                     <span class="message-feed-author">{message.author.display_name}</span>
                                     <span class="message-feed-time">{message.created_at}</span>
                                 </div>
                                 {sessionUser.id == message.author.id ? (
-                                    <button class="message-edit-button" onClick={() => {toggleVisibility(message.id); setNewMessage(message.content)}}>Edit</button>
+                                    <button class={`message-edit-button ${isHidden[message.id] ? 'hidden' : ''} `} onClick={() => {toggleVisibility(message.id); setNewMessage(message.content)}}>Edit</button>
                                 ) : (
                                     <div></div>
                                 )}
@@ -92,7 +89,8 @@ const Channel = () => {
                                     value={newMessage} 
                                     onChange={e => setNewMessage(e.currentTarget.value)}>
                                 </textarea>
-                                <button class="message-send-button" type="submit" onClick={() => handleSubmit(message.id)}>Send</button>
+                                <button class="message-send-button" type="submit" onClick={() => {setNewMessage(message.content); toggleVisibility(message.id)}}>Cancel</button>
+                                <button class="message-send-button" type="submit" onClick={() => {toggleVisibility(message.id);handleSubmit(message.id)}}>Save</button>
                             </div>
                         </div>
                     </li>

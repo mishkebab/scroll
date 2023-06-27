@@ -8,7 +8,12 @@ class ApplicationController < ActionController::API
     
     before_action :snake_case_params, :attach_authenticity_token
 
+    def from_template(template, locals={})
+        JSON.parse(self.class.render(:json, template: template, locals: locals))
+    end 
+
     def current_user
+        p session[:session_token]
         @current_user || User.find_by(session_token: session[:session_token])
     end 
 

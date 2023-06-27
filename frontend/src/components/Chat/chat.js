@@ -24,8 +24,10 @@ const Chat = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newMessage = {message: {content: message, author_id: userId, messageable_type: messageableType, messageable_id: messageableId}}
-        dispatch(createMessage(newMessage))
+        const newMessage = {"message": {content: message, author_id: userId, messageable_type: messageableType, messageable_id: messageableId}}
+        dispatch(createMessage(newMessage)).then(() => {
+            setMessage('');
+        })
     }
 
     return (

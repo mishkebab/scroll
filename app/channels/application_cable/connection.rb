@@ -4,7 +4,7 @@ module ApplicationCable
 
     def connect
       puts 'connecting...'
-      # self.current_user = find_verified_user
+      self.current_user = find_verified_user
     end
 
     private
