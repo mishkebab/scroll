@@ -11,7 +11,7 @@ const DirectMessage = () => {
         dispatch(fetchDM(workspaceId, dmId))
     }, [])
     
-    // const dm = useSelector(state => Object.values(state.dms).filter(channel => channel.id == channelId))
+    const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
     // console.log(dm)
 
     const messages = useSelector(state => Object.values(state.messages))

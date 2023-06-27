@@ -101,50 +101,54 @@ ApplicationRecord.transaction do
     puts "Creating channels..."
 
     Channel.create!(
-        name: 'Gryffindor',
+        name: 'general',
+        owner_id: 2,
+        workspace_id: 1,
+        description: "Welcome to Hogwarts School of Witchcraft and Wizardry!"
+    )
+
+    Channel.create!(
+        name: 'gryffindor',
         owner_id: 2,
         workspace_id: 1,
         description: "Courage, Chivalry, and Determination"
     )
 
     Channel.create!(
-        name: 'Slytherin',
+        name: 'slytherin',
         owner_id: 3,
         workspace_id: 1,
         description: "Ambition, Cunning, and Resourcefulness"
     )
 
     Channel.create!(
-        name: 'Kings Cross Station',
+        name: 'kings Cross Station',
         owner_id: 1,
         workspace_id: 2,
         description: "To discuss the weird disappearances are happening here..."
     )
 
     Channel.create!(
-        name: 'Ravenclaw',
+        name: 'ravenclaw',
         owner_id: 4,
         workspace_id: 1,
         description: "Wisdom, Wit, and Intellect"
     )
 
     Channel.create!(
-        name: 'Hufflepuff',
+        name: 'hufflepuff',
         owner_id: 5,
         workspace_id: 1,
         description: "Hard Work, Kindness, and Patience"
     )
 
+
+
     puts "Creating channel subscriptions..."
 
     ChannelSubscription.create!(
         user_id: 1,
-        channel_id:1
-    )
-
-    ChannelSubscription.create!(
-        user_id: 1,
-        channel_id:3
+        channel_id: 1
     )
 
     ChannelSubscription.create!(
@@ -154,17 +158,47 @@ ApplicationRecord.transaction do
 
     ChannelSubscription.create!(
         user_id: 3,
-        channel_id: 2
+        channel_id: 1
     )
 
     ChannelSubscription.create!(
         user_id: 4,
-        channel_id: 4
+        channel_id: 1
     )
 
     ChannelSubscription.create!(
         user_id: 5,
-        channel_id: 4
+        channel_id: 1
+    )
+
+    ChannelSubscription.create!(
+        user_id: 1,
+        channel_id:2
+    )
+
+    ChannelSubscription.create!(
+        user_id: 1,
+        channel_id:4
+    )
+
+    ChannelSubscription.create!(
+        user_id: 2,
+        channel_id: 2
+    )
+
+    ChannelSubscription.create!(
+        user_id: 3,
+        channel_id: 3
+    )
+
+    ChannelSubscription.create!(
+        user_id: 4,
+        channel_id: 5
+    )
+
+    ChannelSubscription.create!(
+        user_id: 5,
+        channel_id: 5
     )
 
     puts "Creating DM Conversations..."
@@ -193,6 +227,21 @@ ApplicationRecord.transaction do
         user_id: 2
     )
 
+    DirectMessageSubscription.create!(
+        direct_message_id: 2,
+        user_id: 1
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 2,
+        user_id: 4
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 2,
+        user_id: 5
+    )
+
     puts "Creating messages..."
 
     Message.create!(
@@ -219,6 +268,27 @@ ApplicationRecord.transaction do
     Message.create!(
         content: 'hello Hermione we need the Time-Turner back',
         author_id: 2,
+        messageable_type: "DirectMessage",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'will return ASAP!',
+        author_id: 1,
+        messageable_type: "DirectMessage",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'will return ASAP!',
+        author_id: 1,
+        messageable_type: "DirectMessage",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: 'will return ASAP!',
+        author_id: 1,
         messageable_type: "DirectMessage",
         messageable_id: 1
     )

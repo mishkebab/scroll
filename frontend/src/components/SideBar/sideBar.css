@@ -1,3 +1,8 @@
+.selected-blue-channel {
+    background-color: rgb(17, 100, 163) !important;
+    color: white !important;
+}
+
 .sidebar-workspace-name {
     color: white
 }
@@ -5,8 +10,8 @@
 .user-sidebar {
     display: flex;
     flex-direction: column;
-    /* flex-grow: 1; */
-    height: 100vh;
+    flex-grow: 1;
+    height: 100%;
     width: 15%;
     font-size: 15px;
     color: #a3a3a6;
@@ -31,16 +36,45 @@
     align-items: center;
     font-size: 15px;
     color: #a3a3a6;
-    font-family: Lato;
+    font-family: 'Lato', sans-serif;
     padding-left: 16px;
     padding-right: 16px;
+    font-weight: 600;
 }
 
+.sidebar-arrow {
+    display: flex;
+    align-items: center;
+    color: #a3a3a6;
+    background-color: transparent;
+    border: none;
+}
+
+.sidebar-arrow-header {
+    padding: 5px;
+}
+
+.sidebar-button-image-container {
+    display: flex;
+    align-items: center;
+    color: #a3a3a6;
+    background-color: transparent;
+    border: none;
+}
+
+.sidebar-button-image-container:hover {
+    background: #282727
+}
 
 .sidebar-list-item-container {
+    width: 100%;
     text-decoration: none;
     display: inline-block; /* Ensure the menu items are displayed as blocks */
     padding: 4px 16px; /* Add padding to the menu items */
+}
+
+.sidebar-list-item-container:hover {
+    background: #282727
 }
 
 .sidebar-menu {
@@ -50,12 +84,35 @@
 }
 
 .sidebar-list-item {
+    font-family: 'Lato', sans-serif;
     display: flex;
     padding-left: 29px;
     height: 28px;
     line-height: 28px;
     cursor: pointer;
     align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sidebar-list-item-browse {
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    padding-left: 20px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.sidebar-button-image-container-browse {
+    display: flex;
+    align-items: center;
+    color: #a3a3a6;
+    background-color: #282727;
+    border: none;
+    padding: 5px;
+    margin-right: 5px;
 }
 
 .sidebar-hashtag {
@@ -63,14 +120,17 @@
     height: 20px;
     width: 20px;
     font-weight: 700;
-    font-family: Lato;
+    font-family: 'Lato', sans-serif;
     margin-bottom: 5px;
     color: #a3a3a6;
+    display: flex;
+    align-items: ;
 }
 
 .sidebar-item-name {
+    font-family: 'Lato', sans-serif;
     color: #a3a3a6;
-    font-weight: 400;
+    font-weight: 500;
     margin-left: 4px; /* Add a margin between the hashtag and item name */
 }
 

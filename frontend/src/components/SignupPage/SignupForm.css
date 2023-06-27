@@ -17,7 +17,7 @@
     color: #454254;
     max-width: 700px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .signup-form-input {
@@ -29,7 +29,7 @@
     box-sizing: border-box;
     margin: 0 0 20px;
     width: 400px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .signup-form-button {

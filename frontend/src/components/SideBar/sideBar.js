@@ -4,15 +4,17 @@ import { useParams } from "react-router-dom";
 import { fetchChannels } from "../../store/channels";
 import { fetchDMs } from "../../store/dms";
 import { fetchWorkspace } from "../../store/workspaces";
-import PlusButton from "../../assets/plus-button.png"
-import DownArrow from "../../assets/down-arrow.png"
 import './sideBar.css'
+import { BiSolidDownArrow } from 'react-icons/bi'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 
 const SideBar = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { userId } = useParams();
+    const { channelId } = useParams();
+    const { dmId } = useParams();
     const [channelOpen, setChannelOpen] = useState(false);
     const [dmOpen, setDMOpen] = useState(false);
 
@@ -26,7 +28,7 @@ const SideBar = () => {
 
     useEffect(() => {
         dispatch(fetchWorkspace(workspaceId))
-    }, [])
+    }, [workspaceId])
 
     useEffect(() => {
         dispatch(fetchChannels(workspaceId))
@@ -35,15 +37,6 @@ const SideBar = () => {
     useEffect(() => {
         dispatch(fetchDMs(workspaceId))
     }, [])
-
-    const handleChannelOpen = () => {
-        setChannelOpen(!channelOpen);
-    }
-
-
-    const handleDMOpen = () => {
-        setDMOpen(!dmOpen);
-    }
     
     const sessionUser = useSelector(state => state.session.user)
     const workspace = useSelector(state => Object.values(state.workspaces))
@@ -55,42 +48,47 @@ const SideBar = () => {
             {/* <h1 class="sidebar-workspace-name">{workspace[0].name}</h1> */}
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
-                    <button onClick={toggleChannelVisibility}>
-                        <img src={DownArrow} />
+                    <button class="sidebar-arrow" onClick={toggleChannelVisibility}>
+                        <BiSolidDownArrow />
+                        <span class="sidebar-arrow-header">Channels</span>
                     </button>
-                    <span>Channels</span>
-                    <div class="sidebar-button-image-container hidden">
-                        <img src={PlusButton}/>
-                    </div>
+                    <button class="sidebar-button-image-container">
+                        <AiOutlinePlus />
+                    </button>
                 </div>
                 <ul className="sidebar-menu"> 
                         {channels.map(channel => 
-                            <a class={`sidebar-list-item-container ${channelOpen ? 'hidden' : ''} `} href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
+                            <a class={`sidebar-list-item-container ${channelOpen ? 'hidden' : ''} ${channel.id == channelId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
                                 <li class="sidebar-list-item">
                                     <span class="sidebar-hashtag">#</span>
-                                    <span class="sidebar-item-name">{channel.name}</span>
+                                    <span class={`sidebar-item-name ${channel.id == channelId ? 'selected-blue-channel' : ''}`}>{channel.name}</span>
                                 </li>
                             </a>
                         )}
                 </ul>
+                <a class={`sidebar-list-item-container ${channelOpen ? 'hidden' : ''} `} href={`/user/${userId}/${workspaceId}/`}>
+                    <li class="sidebar-list-item-browse">
+                        <span class="sidebar-button-image-container-browse"><AiOutlinePlus /></span>
+                        <span class="sidebar-item-name">Browse Channels</span>
+                    </li>
+                </a>
             </div>
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
-                    <button onClick={toggleDMVisibility}>
-                        <img src={DownArrow} />
+                    <button class="sidebar-arrow" onClick={toggleDMVisibility}>
+                        <BiSolidDownArrow />
+                        <span class="sidebar-arrow-header">Direct Messages</span>
                     </button>
-
-                    <span>Direct messages</span>
-                    <div class="sidebar-button-image-container hidden">
-                            <img src={PlusButton}/>
-                    </div>
+                    <button class="sidebar-button-image-container">
+                        <AiOutlinePlus />
+                    </button>
                 </div>
                 <ul className="sidebar-menu"> 
                     {dms.map(dm => 
-                        <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} `} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
+                        <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} ${dm.id == dmId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
                                 <span class="sidebar-hashtag">#</span>
-                                <span class="sidebar-item-name">{Object.values(dm.users.filter(user => user.id != sessionUser.id).map(user => user.name)).join(", ")}</span>
+                                <span class={`sidebar-item-name ${dm.id == dmId ? 'selected-blue-channel' : ''}`}>{Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")}</span>
                             </li>
                         </a>
                     )}

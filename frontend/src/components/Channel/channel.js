@@ -8,21 +8,21 @@ import { editMessage, setMessage } from "../../store/messages";
 import { deleteMessage } from "../../store/messages";
 import consumer from "../../consumer";
 import { setCurrentUser } from "../../store/session";
+import { IoIosArrowDown } from "react-icons/io"
 
 const Channel = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { channelId } = useParams();
+
     useEffect(() => {
         dispatch(fetchChannel(workspaceId, channelId))
-    }, [])
+    }, [dispatch, channelId])
     
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const messages = useSelector(state => Object.values(state.messages))
 
-    useEffect(() => {
-        dispatch(fetchChannel(workspaceId, channelId));
-    }, [])
+    console.log(channel)
 
     useEffect(() => {
         const sub = consumer.subscriptions.create(
@@ -60,7 +60,17 @@ const Channel = () => {
     }
 
     return (
-        <div>
+        <div class="channel-show">
+            <div class="channel-header">
+                <div class="channel-subheader">
+                    <button class="channel-name">
+                        {/* <h1 class="channel-name-header"># {channel[0].name}</h1> */}
+                        < IoIosArrowDown />
+                    </button>
+                    {/* <span class="channel-description">{channel[0].description}</span> */}
+                </div>
+                {/* <button class="channel-members-button">{channel[0].users.length} members</button> */}
+            </div>
             <ul class="message-feed-list">
                 {messages.map(message => 
                     <li class="message-feed-item">

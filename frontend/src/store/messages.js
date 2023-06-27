@@ -49,10 +49,10 @@ export const editMessage = (messageData) => async(dispatch) => {
         },
         body: JSON.stringify(messageData)
     })
-    if (res.ok) {
-        const newMessage = await res.json();
-        dispatch(setMessage(newMessage))
-    }
+    // if (res.ok) {
+    //     const newMessage = await res.json();
+    //     dispatch(setMessage(newMessage))
+    // }
 }
 
 export const deleteMessage = (messageId) => async(dispatch) => {

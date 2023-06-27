@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createMessage } from "../../store/messages";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChannel } from "../../store/channels";
 import "./chat.css"
 
 const Chat = () => {
@@ -9,17 +10,29 @@ const Chat = () => {
     const [message, setMessage] = useState('');
     const { userId } = useParams();
     const { channelId } = useParams();
+    const { workspaceId } = useParams();
     const { dmId } = useParams();
+    const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
+    const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
+    const sessionUser = useSelector(state => state.session.user)
+
+    useEffect(() => {
+        dispatch(fetchChannel(workspaceId, channelId))
+    }, [dispatch, channelId])
     
     let messageableType;
     let messageableId;
+    let channelName;
+    let dmName;
     
     if (channelId) {
         messageableType = "Channel";
         messageableId = channelId;
+        // channelName = `#${channel[0].name}`;
     } else {
         messageableType= "DirectMessage";
         messageableId = dmId;
+        // dmName = Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")
     }
 
     const handleSubmit = (e) => {
@@ -34,7 +47,7 @@ const Chat = () => {
         <div class="user-message-container">
                 <textarea
                     class="message-input"
-                    placeholder="write a message" 
+                    // placeholder={`Message ${channelName ? channelName : dmName}`}  
                     value={message} 
                     onChange={e => setMessage(e.currentTarget.value)}>
                 </textarea>

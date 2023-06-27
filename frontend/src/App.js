@@ -17,14 +17,16 @@ function App() {
     <>
       <Switch>
         <Route path="/user/:userId/:workspaceId/channel/:channelId">
+          <div class="user-dashboard">
             <NavBarUser />
-            <div class="user-dashboard">
+            <div class="user-dashboard-main">
               <SideBar />
               <div class="user-dashboard-center">
                 <Channel />
                 <Chat />
               </div>
             </div>
+          </div>
         </Route>
         <Route path="/user/:userId/:workspaceId/dm/:dmId">
           <NavBarUser />
@@ -37,10 +39,12 @@ function App() {
             </div>
         </Route>
         <Route path="/user/:userId/:workspaceId">
-            <NavBarUser />
           <div class="user-dashboard">
+            <NavBarUser />
+          <div class="user-dashboard-main">
             <SideBar />
             <ChannelBrowser />
+          </div>
           </div>
         </Route>
         <Route path="/login">

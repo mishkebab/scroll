@@ -10,7 +10,7 @@
     display: flex;
     line-height: 1.46668;
     font-size: 15px;
-    font-family: Lato;
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
     color: #d1d2d3;
     align-items: center;
@@ -31,7 +31,7 @@
 .message-feed-author-initial {
     color: #D1D2D3;
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 700;
 }
 
