@@ -14,6 +14,10 @@ function Navigation() {
         
     }
 
+    const loginDemo = () => {
+        dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
+    }
+
     return (sessionUser) ? (
         <div className="nav-bar">
             <ul>
@@ -38,7 +42,7 @@ function Navigation() {
                 <a className="nav-bar-link" href="/login">Log in</a>
                 <a id="nav-signup" href="/signup">Sign up Here</a>
                 <Link to="/">
-                    <button className="nav-demo">Try a Demo</button>
+                    <button className="nav-demo" onClick={loginDemo}>Try a Demo</button>
                 </Link>
             </ul>
         </div>

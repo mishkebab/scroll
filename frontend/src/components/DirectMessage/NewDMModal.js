@@ -1,48 +1,25 @@
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import './channelBrowser.css'
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchChannels } from "../../store/channels";
-import axios from 'axios';
 
 const ChannelBrowser = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { userId } = useParams();
-    const [value, setValue] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
-    const [hideSuggestions, setHideSuggestions] = useState(true);
 
     useEffect(() => {
         dispatch(fetchChannels(workspaceId))
     }, [])
 
     const channels = useSelector(state => Object.values(state.channels))
-    // setSuggestions(channels);
     // console.log(channels[0].users.length)
 
     return (
         <div class="channel-browser-main">
             <div class="channel-browser-header">
                 <h1>Channel Browser</h1>
-            </div>
-            <div className="bump">
-                <input
-                    type="text"
-                    className="bump"
-                    placeholder="Search channels..."
-                    value={value}
-                    onChange={(e) => {
-                    setValue(e.target.value);
-                    }}
-                />
-            </div>
-            <div className={`${['suggestions']} ${hideSuggestions && ['hidden']}`}>
-                {suggestions.map((suggestion) => (
-                    <div className={suggestion}>
-                        {suggestion['title']}
-                    </div>
-                ))}
             </div>
             <ul class="channel-browser-items">
                 {channels.map(channel => 

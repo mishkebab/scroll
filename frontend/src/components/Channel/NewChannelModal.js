@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import './newChannel.css'
 
-
 function NewChannelModal() {
     const [showModal, setShowModal] = useState(false);
     const { workspaceId } = useParams();

@@ -7,7 +7,7 @@ import { fetchWorkspace } from "../../store/workspaces";
 import './sideBar.css'
 import { BiSolidDownArrow } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
-import NewChannelModal from "../CreateChannel/NewChannelModal";
+import NewChannelModal from "../Channel/NewChannelModal";
 
 const SideBar = () => {
     const dispatch = useDispatch();

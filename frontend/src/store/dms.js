@@ -28,6 +28,21 @@ export const fetchDMs = (workspaceId) => async(dispatch) => {
     dispatch(setDMs(data))
 }
 
+export const createDM = (workspaceId, dmData) => async(dispatch) => {
+    const res = await csrfFetch(`/api/workspaces/${workspaceId}/dms`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dmData)
+    })
+    if (res.ok) {
+        // debugger
+        const newDM = await res.json();
+        dispatch(setDM(newDM))
+    }
+}
+
 const dmsReducer = (state={}, action) => {
     switch (action.type) {
         case SET_DMS:

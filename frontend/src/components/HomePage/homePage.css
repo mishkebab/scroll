@@ -65,6 +65,11 @@
     background-color: #fff;
 }
 
+.workspace-name-main-page {
+    color: black;
+    padding: 1000px;
+}
+
 .waving-gif {
     /* position: relative; */
     margin-right: 0.25rem;

@@ -5,9 +5,9 @@
 }
 
 .channel-browser-header {
-    font-size: 18px important;
+    font-size: 12px !important;
     line-height: 1.33334;
-    font-weight: 900 important;
+    font-weight: 900 !important;
     font-family: 'Lato', sans-serif;
     color: white;
     background: #1B1D21;
