@@ -67,7 +67,7 @@ export const deleteMessage = (messageId) => async(dispatch) => {
 const messagesReducer = (state={}, action) => {
     switch (action.type) {
         case SET_MESSAGES:
-            return action.messages
+            return { ...state, ...action.messages}
         case SET_MESSAGE:
             return { ...state, [action.message.id]: action.message}
         case REMOVE_MESSAGE:

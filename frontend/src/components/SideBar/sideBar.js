@@ -7,7 +7,7 @@ import { fetchWorkspace } from "../../store/workspaces";
 import './sideBar.css'
 import { BiSolidDownArrow } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
-
+import NewChannelModal from "../CreateChannel/NewChannelModal";
 
 const SideBar = () => {
     const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const SideBar = () => {
     const { dmId } = useParams();
     const [channelOpen, setChannelOpen] = useState(false);
     const [dmOpen, setDMOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const toggleChannelVisibility = () => {
         setChannelOpen(!channelOpen)
@@ -52,9 +53,7 @@ const SideBar = () => {
                         <BiSolidDownArrow />
                         <span class="sidebar-arrow-header">Channels</span>
                     </button>
-                    <button class="sidebar-button-image-container">
-                        <AiOutlinePlus />
-                    </button>
+                    <NewChannelModal />
                 </div>
                 <ul className="sidebar-menu"> 
                         {channels.map(channel => 

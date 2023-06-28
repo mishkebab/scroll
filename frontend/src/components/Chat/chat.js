@@ -12,13 +12,15 @@ const Chat = () => {
     const { channelId } = useParams();
     const { workspaceId } = useParams();
     const { dmId } = useParams();
-    const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
-    const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
-    const sessionUser = useSelector(state => state.session.user)
-
+    
     useEffect(() => {
         dispatch(fetchChannel(workspaceId, channelId))
     }, [dispatch, channelId])
+    
+    
+    const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
+    const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
+    const sessionUser = useSelector(state => state.session.user)
     
     let messageableType;
     let messageableId;
@@ -28,11 +30,15 @@ const Chat = () => {
     if (channelId) {
         messageableType = "Channel";
         messageableId = channelId;
-        // channelName = `#${channel[0].name}`;
+        if (channel.length === 0) {
+            channelName = " ";
+        } else {
+            channelName = `#${channel[0].name}`;
+        }
     } else {
         messageableType= "DirectMessage";
         messageableId = dmId;
-        // dmName = Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")
+        dmName = Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")
     }
 
     const handleSubmit = (e) => {
@@ -47,7 +53,7 @@ const Chat = () => {
         <div class="user-message-container">
                 <textarea
                     class="message-input"
-                    // placeholder={`Message ${channelName ? channelName : dmName}`}  
+                    placeholder={`Message ${channelName ? channelName : dmName}`}  
                     value={message} 
                     onChange={e => setMessage(e.currentTarget.value)}>
                 </textarea>

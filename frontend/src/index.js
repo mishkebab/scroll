@@ -11,6 +11,7 @@ import './reset.css'
 import * as workspaceActions from './store/workspaces'
 import * as channelActions from './store/channels'
 import * as messageActions from './store/messages'
+import { ModalProvider } from './context/Modal';
 
 const store = configureStore();
 
@@ -25,11 +26,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 function Root() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ModalProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ModalProvider>
   );
 }
 

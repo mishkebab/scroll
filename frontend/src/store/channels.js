@@ -27,6 +27,21 @@ export const fetchChannels = (workspaceId) => async(dispatch) => {
     dispatch(setChannels(data))
 }
 
+export const createChannel = (workspaceId, channelData) => async(dispatch) => {
+    const res = await csrfFetch(`/api/workspaces/${workspaceId}/channels`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(channelData)
+    })
+    if (res.ok) {
+        // debugger
+        const newChannel = await res.json();
+        dispatch(setChannel(newChannel))
+    }
+}
+
 const channelsReducer = (state={}, action) => {
     switch (action.type) {
         case SET_CHANNELS:

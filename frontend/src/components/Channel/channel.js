@@ -22,7 +22,6 @@ const Channel = () => {
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const messages = useSelector(state => Object.values(state.messages))
 
-    console.log(channel)
 
     useEffect(() => {
         const sub = consumer.subscriptions.create(
@@ -59,17 +58,21 @@ const Channel = () => {
         dispatch(editMessage(updatedMessage))
     }
 
+    if (channel.length === 0){
+        return null;
+    };
+
     return (
         <div class="channel-show">
             <div class="channel-header">
                 <div class="channel-subheader">
                     <button class="channel-name">
-                        {/* <h1 class="channel-name-header"># {channel[0].name}</h1> */}
+                        <h1 class="channel-name-header"># {channel[0].name}</h1>
                         < IoIosArrowDown />
                     </button>
-                    {/* <span class="channel-description">{channel[0].description}</span> */}
+                    <span class="channel-description">{channel[0].description}</span>
                 </div>
-                {/* <button class="channel-members-button">{channel[0].users.length} members</button> */}
+                <button class="channel-members-button">{channel[0].users.length} members</button>
             </div>
             <ul class="message-feed-list">
                 {messages.map(message => 
