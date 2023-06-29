@@ -5,7 +5,7 @@ import { fetchChannels } from "../../store/channels";
 import { fetchDMs } from "../../store/dms";
 import { fetchWorkspace } from "../../store/workspaces";
 import './sideBar.css'
-import { BiSolidDownArrow } from 'react-icons/bi'
+import { BiSolidDownArrow, BiSolidRightArrow } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import NewChannelModal from "../Channel/NewChannelModal";
 
@@ -44,13 +44,19 @@ const SideBar = () => {
     const channels = useSelector(state => Object.values(state.channels))
     const dms = useSelector(state => Object.values(state.dms))
 
+    if (dms.length === 0){
+        return null;
+    };
+
+    console.log(dms[0].id)
+
     return (
         <div class="user-sidebar">
             {/* <h1 class="sidebar-workspace-name">{workspace[0].name}</h1> */}
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
                     <button class="sidebar-arrow" onClick={toggleChannelVisibility}>
-                        <BiSolidDownArrow />
+                        {channelOpen ? <BiSolidRightArrow /> : <BiSolidDownArrow />}
                         <span class="sidebar-arrow-header">Channels</span>
                     </button>
                     <NewChannelModal />
@@ -75,7 +81,7 @@ const SideBar = () => {
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
                     <button class="sidebar-arrow" onClick={toggleDMVisibility}>
-                        <BiSolidDownArrow />
+                        {dmOpen ? <BiSolidRightArrow /> : <BiSolidDownArrow />}
                         <span class="sidebar-arrow-header">Direct Messages</span>
                     </button>
                     <button class="sidebar-button-image-container">
@@ -87,7 +93,7 @@ const SideBar = () => {
                         <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} ${dm.id == dmId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
                                 <span class="sidebar-hashtag">#</span>
-                                <span class={`sidebar-item-name ${dm.id == dmId ? 'selected-blue-channel' : ''}`}>{Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")}</span>
+                                <span class={`sidebar-item-name ${dm.id == dmId ? 'selected-blue-channel' : ''}`}>{(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ")}</span>
                             </li>
                         </a>
                     )}

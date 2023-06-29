@@ -2,7 +2,8 @@ import './homePage.css'
 import { useEffect, useState } from 'react';
 import HomePageImage from "./../../assets/sample_homepage.jpeg"
 import WelcomeGIF from "./../../assets/welcome-waving.gif"
-import Hogwarts from "./../../assets/hogwarts.png"
+import Hogwarts from "./../../assets/harry-potter.jpeg"
+import LondonBus from "./../../assets/london-tower-bridge.jpeg"
 import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
 import { Link } from 'react-router-dom';
@@ -13,7 +14,6 @@ const HomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const workspaces = useSelector(state => Object.values(state.workspaces))
-    console.log(workspaces)
     
     useEffect(() => {
         dispatch(fetchWorkspaces())
@@ -32,28 +32,21 @@ const HomePage = () => {
                 </div>
                 <div className="welcome-user-info-container">
                     <div className="welcome-user-info-title">{`Workspaces for ${sessionUser.email}`}</div>
-                    <div className="welcome-user-subheader">
-                        <div className="welcome-user-choose-workspace">
-                            <div className="welcome-user-details">
-                                <span>{sessionUser.fullName}</span>
-                                <span>{sessionUser.title}</span>
-                            </div>
-                            <ul>
-                                {workspaces.map(workspace =>
-                                    <li>
-                                        <div class="workspace-image-container">
-                                            <img src={Hogwarts} />
-                                        </div>
-                                        <div>
-                                            <span class="workspace-name-main-page">{workspace.name}</span>
-                                            <span>{workspace.name}</span>
-                                        </div>
-                                        {/* <Link to={`/user/${sessionUser.id}/${workspace.id}`}>{workspace.name}</Link> */}
-                                        <a className="welcome-user-launch-button" href="/user-dashboard">Launch Scroll</a>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
+                    <div className="welcome-user-choose-workspace">
+                        <ul class="workspace-item-menu">
+                            {workspaces.map(workspace =>
+                                <li class="workspace-item">
+                                    <div class="workspace-image-container">
+                                        <img class="workspace-image" src={workspace.id == 1 ? Hogwarts : LondonBus} />
+                                    </div>
+                                    <div class="workspace-info-container">
+                                        <span class="workspace-name-main-page">{workspace.name}</span>
+                                        <span class="workspace-info-members-main-page">{workspace.users.length} members</span>
+                                    </div>
+                                    <a className="welcome-user-launch-button" href={`/user/${sessionUser.id}/${workspace.id}`}>Launch Scroll</a>
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 </div>
             </div>

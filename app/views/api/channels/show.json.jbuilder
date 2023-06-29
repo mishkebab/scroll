@@ -13,11 +13,6 @@ json.channel do
     end 
 end 
 
-# json.users @channel.users do |user|
-
-# end 
-
-
 json.messages do
     @channel.messages.each do |message|
         json.set! message.id do

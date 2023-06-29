@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :show, :destroy]
     resources :workspaces, only: [:index, :show, :create, :update, :destroy] do
       resources :channels, only: [:index, :show, :create, :update]
-      resources :dms, only: [:index, :show]
+      resources :dms, only: [:index, :show, :create, :update]
     end 
     resources :messages, only: [:index, :show, :create, :update, :destroy]
   end

@@ -3,6 +3,7 @@ import { createMessage } from "../../store/messages";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChannel } from "../../store/channels";
+import { fetchDM } from "../../store/dms";
 import "./chat.css"
 
 const Chat = () => {
@@ -14,14 +15,21 @@ const Chat = () => {
     const { dmId } = useParams();
     
     useEffect(() => {
-        dispatch(fetchChannel(workspaceId, channelId))
+        if (channelId) {
+            dispatch(fetchChannel(workspaceId, channelId))
+        }
     }, [dispatch, channelId])
+
+    useEffect(() => {
+        if (dmId) {
+            dispatch(fetchDM(workspaceId, dmId))
+        }
+    }, [dispatch, dmId])
     
-    
+    const sessionUser = useSelector(state => state.session.user)
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
-    const sessionUser = useSelector(state => state.session.user)
-    
+
     let messageableType;
     let messageableId;
     let channelName;
@@ -38,7 +46,11 @@ const Chat = () => {
     } else {
         messageableType= "DirectMessage";
         messageableId = dmId;
-        dmName = Object.values(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.name)).join(", ")
+        if (dm.length === 0) {
+            dmName = " ";
+        } else {
+            dmName = (dm[0].users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ");
+        }
     }
 
     const handleSubmit = (e) => {

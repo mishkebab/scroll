@@ -16,9 +16,13 @@ class Api::MessagesController < ApplicationController
         if !@message.save
             render json: @message.errors.full_messages, status: 422
         else
-            # debugger
-            ChatChannel.broadcast_to @message.messageable, 
-                from_template('api/messages/show', message: @message)
+            if @message.messageable_type == "Channel"
+                ChatChannel.broadcast_to @message.messageable, 
+                    from_template('api/messages/show', message: @message)
+            else
+                DmChannel.broadcast_to @message.messageable,
+                    from_template('api/messages/show', message: @message)
+            end
         end 
     end
 
@@ -28,8 +32,13 @@ class Api::MessagesController < ApplicationController
         if !@message.update(message_params)
             render json: @message.errors.full_messages, status: 422
         else
-            ChatChannel.broadcast_to @message.messageable, 
-                from_template('api/messages/show', message: @message)
+            if @message.messageable_type == "Channel"
+                ChatChannel.broadcast_to @message.messageable, 
+                    from_template('api/messages/show', message: @message)
+            else
+                DmChannel.broadcast_to @message.messageable,
+                    from_template('api/messages/show', message: @message)
+            end
         end 
     end
 

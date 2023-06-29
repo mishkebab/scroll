@@ -1,4 +1,3 @@
-import SideBar from "../SideBar/sideBar";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,7 +6,6 @@ import "./channel.css"
 import { editMessage, setMessage } from "../../store/messages";
 import { deleteMessage } from "../../store/messages";
 import consumer from "../../consumer";
-import { setCurrentUser } from "../../store/session";
 import { IoIosArrowDown } from "react-icons/io"
 
 const Channel = () => {
@@ -30,7 +28,6 @@ const Channel = () => {
                 received: ({ message }) => {
                     console.log('Received message: ', message);
                     dispatch(setMessage(message));
-                    // dispatch(setCurrentUser(user));
                 }
             }
         )
@@ -49,9 +46,6 @@ const Channel = () => {
             [messageId]: !prevState[messageId]
         }))
     };
-
-    // Object.values(channel[0]).map(item => console.log(item))
-    // const messages = Object.values(channel[0].messages)
 
     const handleSubmit = (messageId) => {
         const updatedMessage = {id: messageId, content: newMessage}
@@ -81,30 +75,35 @@ const Channel = () => {
                             <strong class="message-feed-author-initial">{message.author.display_name[0]}</strong>
                         </div>
                         <div class="message-feed-item-content">
-                            <div class={`message-feed-item-content-top-wrapped ${isHidden[message.id] ? 'hidden' : ''} `}>
-                                <div class="message-feed-item-content-top">
-                                    <span class="message-feed-author">{message.author.display_name}</span>
-                                    <span class="message-feed-time">{message.created_at}</span>
+                            <div>
+                                <div class={`message-feed-item-content-top-wrapped ${isHidden[message.id] ? 'hidden' : ''} `}>
+                                    <div class="message-feed-item-content-top">
+                                        <span class="message-feed-author">{message.author.display_name}</span>
+                                        <span class="message-feed-time">{message.created_at}</span>
+                                    </div>
                                 </div>
-                                {sessionUser.id == message.author.id ? (
-                                    <button class={`message-edit-button ${isHidden[message.id] ? 'hidden' : ''} `} onClick={() => {toggleVisibility(message.id); setNewMessage(message.content)}}>Edit</button>
-                                ) : (
+                                <div class={`message-feed-text-container ${isHidden[message.id] ? 'hidden' : ''} `}>
+                                    <span class="message-feed-text">{message.content}</span>
                                     <div></div>
-                                )}
+                                </div>
+                                <div class={`user-message-container ${isHidden[message.id] ? '' : 'hidden'} `}>
+                                    <textarea
+                                        class={`message-input`}
+                                        value={newMessage} 
+                                        onChange={e => setNewMessage(e.currentTarget.value)}>
+                                    </textarea>
+                                    <button class="message-send-button" type="submit" onClick={() => {setNewMessage(message.content); toggleVisibility(message.id)}}>Cancel</button>
+                                    <button class="message-send-button" type="submit" onClick={() => {toggleVisibility(message.id);handleSubmit(message.id)}}>Save</button>
+                                </div>
                             </div>
-                            <div class={`message-feed-text-container ${isHidden[message.id] ? 'hidden' : ''} `}>
-                                <span class="message-feed-text">{message.content}</span>
-                                <div></div>
+                            {sessionUser.id == message.author.id ? (
+                            <div class="message-edit-delete-buttons">
+                                <button class={`message-edit-button ${isHidden[message.id] ? 'hidden' : ''} `} onClick={() => {toggleVisibility(message.id); setNewMessage(message.content)}}>Edit</button>
+                                <button class={`message-edit-button ${isHidden[message.id] ? 'hidden' : ''} `} onClick={() => dispatch(deleteMessage(message.id))}>Delete</button>
                             </div>
-                            <div class={`user-message-container ${isHidden[message.id] ? '' : 'hidden'} `}>
-                                <textarea
-                                    class={`message-input`}
-                                    value={newMessage} 
-                                    onChange={e => setNewMessage(e.currentTarget.value)}>
-                                </textarea>
-                                <button class="message-send-button" type="submit" onClick={() => {setNewMessage(message.content); toggleVisibility(message.id)}}>Cancel</button>
-                                <button class="message-send-button" type="submit" onClick={() => {toggleVisibility(message.id);handleSubmit(message.id)}}>Save</button>
-                            </div>
+                            ) : (
+                            <div></div>
+                            )}
                         </div>
                     </li>
                 )}

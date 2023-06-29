@@ -13,7 +13,7 @@ const ChannelBrowser = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [hideSuggestions, setHideSuggestions] = useState(true);
 
-    useEffect(() => {
+useEffect(() => {
         dispatch(fetchChannels(workspaceId))
     }, [])
 

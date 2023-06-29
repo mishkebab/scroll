@@ -1,11 +1,10 @@
 json.dm do 
-    json.extract! @dm, :id
-end 
-
-json.users @dm.users.each do |user| 
-    json.set! user.id do 
-        json.extract! user, :id, :display_name, :title
-    end
+    json.id @dm.id
+    json.users @dm.users do |user|
+        json.id user.id
+        json.display_name user.display_name
+        json.title user.title
+    end 
 end 
 
 json.messages do

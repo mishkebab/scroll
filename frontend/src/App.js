@@ -29,12 +29,14 @@ function App() {
           </div>
         </Route>
         <Route path="/user/:userId/:workspaceId/dm/:dmId">
-          <NavBarUser />
             <div class="user-dashboard">
-              <SideBar />
-              <div class="user-dashboard-center">
-                <DirectMessage />
-                <Chat />
+              <NavBarUser />
+              <div class="user-dashboard-main">
+                <SideBar />
+                <div class="user-dashboard-center">
+                  <DirectMessage />
+                  <Chat />
+                </div>
               </div>
             </div>
         </Route>
