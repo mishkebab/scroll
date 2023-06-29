@@ -13,11 +13,22 @@ const ChannelBrowser = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [hideSuggestions, setHideSuggestions] = useState(true);
 
-useEffect(() => {
-        dispatch(fetchChannels(workspaceId))
+    useEffect(() => {
+            dispatch(fetchChannels(workspaceId))
     }, [])
 
     const channels = useSelector(state => Object.values(state.channels))
+
+    const user_channels = useSelector(state => Object.values(state.session.user.channels))
+    console.log(user_channels)
+
+    const user_channel_ids = user_channels.map(channel => channel.id)
+    console.log(user_channel_ids)
+
+    if (channels.length === 0 || user_channels.length === 0){
+        return null;
+    };
+    // console.log(user_channels)
     // setSuggestions(channels);
     // console.log(channels[0].users.length)
 
@@ -53,6 +64,7 @@ useEffect(() => {
                                     <span class="channel-browser-item-subtitle">{channel.users.length} members</span>
                                 </div>
                             </a>
+                            {user_channel_ids.includes(channel.id) ? <button>Leave</button> : <button>Join</button>}
                         </li>
                 )}
             </ul>

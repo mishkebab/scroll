@@ -17,6 +17,7 @@ function NewChannelModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+        setShowModal(false);
         const newChannel = {"channel": {name: name, description: description, workspace_id: workspaceId}}
         return dispatch(createChannel(workspaceId, newChannel))
             .catch(async (res) => {

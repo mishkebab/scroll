@@ -17,13 +17,17 @@ class Api::MessagesController < ApplicationController
             render json: @message.errors.full_messages, status: 422
         else
             if @message.messageable_type == "Channel"
-                ChatChannel.broadcast_to @message.messageable, 
-                    from_template('api/messages/show', message: @message)
+                ChatChannel.broadcast_to @message.messageable,
+                    type: 'RECEIVE_MESSAGE',
+                    **from_template('api/messages/show', message: @message)
             else
                 DmChannel.broadcast_to @message.messageable,
-                    from_template('api/messages/show', message: @message)
+                    type: 'RECEIVE_MESSAGE',
+                    **from_template('api/messages/show', message: @message)
             end
-        end 
+        end
+        
+        render json: nil, status: :ok
     end
 
     def update
@@ -34,17 +38,31 @@ class Api::MessagesController < ApplicationController
         else
             if @message.messageable_type == "Channel"
                 ChatChannel.broadcast_to @message.messageable, 
-                    from_template('api/messages/show', message: @message)
+                    type: 'RECEIVE_MESSAGE',
+                    **from_template('api/messages/show', message: @message)
             else
                 DmChannel.broadcast_to @message.messageable,
-                    from_template('api/messages/show', message: @message)
+                    type: 'RECEIVE_MESSAGE',
+                    **from_template('api/messages/show', message: @message)
             end
         end 
+
+        render json: nil, status: :ok
     end
 
     def destroy
         @message = current_user.messages.find(params[:id])
         @message.destroy
+        if @message.messageable_type == "Channel"
+            ChatChannel.broadcast_to @message.messageable, 
+            type: 'DESTROY_MESSAGE',
+            id: @message.id
+        else
+            DmChannel.broadcast_to @message.messageable,
+            type: 'DESTROY_MESSAGE',
+            id: @message.id
+        end
+        render json: nil, status: :ok
     end 
 
     private

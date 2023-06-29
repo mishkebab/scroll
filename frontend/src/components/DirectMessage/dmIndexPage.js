@@ -1,33 +1,36 @@
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
-import './channelBrowser.css'
+// import './channelBrowser.css'
 import { useEffect } from "react";
-import { fetchChannels } from "../../store/channels";
+import { fetchDMs } from "../../store/dms";
 
-const ChannelBrowser = () => {
+const DMIndexPage = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { userId } = useParams();
 
     useEffect(() => {
-        dispatch(fetchChannels(workspaceId))
+        dispatch(fetchDMs(workspaceId))
     }, [])
 
-    const channels = useSelector(state => Object.values(state.channels))
-    // console.log(channels[0].users.length)
+    const sessionUser = useSelector(state => state.session.user)
+    const dms = useSelector(state => Object.values(state.dms))
+
+    if (dms.length === 0){
+        return null;
+    };
 
     return (
         <div class="channel-browser-main">
             <div class="channel-browser-header">
-                <h1>Channel Browser</h1>
+                <h1>Direct messages</h1>
             </div>
             <ul class="channel-browser-items">
-                {channels.map(channel => 
+                {dms.map(dm => 
                         <li class="channel-browser-item">
-                            <a class="channel-browser-link-to-channel" href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
+                            <a class="channel-browser-link-to-channel" href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                                 <div class="channel-browser-label-container">
-                                    <span class="channel-browser-item-title"># {channel.name}</span>
-                                    <span class="channel-browser-item-subtitle">{channel.users.length} members</span>
+                                    <span class="channel-browser-item-title"># {(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ")}</span>
                                 </div>
                             </a>
                         </li>
@@ -37,4 +40,4 @@ const ChannelBrowser = () => {
     )
 }
 
-export default ChannelBrowser;
+export default DMIndexPage;

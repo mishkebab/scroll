@@ -25,10 +25,14 @@ const Chat = () => {
             dispatch(fetchDM(workspaceId, dmId))
         }
     }, [dispatch, dmId])
-    
+
     const sessionUser = useSelector(state => state.session.user)
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
+
+    if (channel.length === 0 && dm.length === 0) {
+        return null;
+    }
 
     let messageableType;
     let messageableId;
@@ -51,7 +55,7 @@ const Chat = () => {
         } else {
             dmName = (dm[0].users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ");
         }
-    }
+    } 
 
     const handleSubmit = (e) => {
         e.preventDefault();

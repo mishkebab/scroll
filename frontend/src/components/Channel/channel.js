@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchChannel } from "../../store/channels";
 import "./channel.css"
-import { editMessage, setMessage } from "../../store/messages";
+import { editMessage, removeMessage, setMessage } from "../../store/messages";
 import { deleteMessage } from "../../store/messages";
 import consumer from "../../consumer";
 import { IoIosArrowDown } from "react-icons/io"
@@ -25,9 +25,18 @@ const Channel = () => {
         const sub = consumer.subscriptions.create(
             { channel: 'ChatChannel', id: channelId },
             {
-                received: ({ message }) => {
-                    console.log('Received message: ', message);
-                    dispatch(setMessage(message));
+                received: ({ type, message, id }) => {
+                    switch (type) {
+                        case 'RECEIVE_MESSAGE':
+                            dispatch(setMessage(message));
+                            break;
+                        case 'DESTROY_MESSAGE':
+                            dispatch(removeMessage(id))
+                            break;
+                        default:
+                            console.log('Unhandled broadcast: ', type);
+                            break;
+                    }
                 }
             }
         )

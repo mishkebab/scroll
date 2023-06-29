@@ -6,7 +6,7 @@ const SET_CHANNELS = "channels/setChannels"
 
 const setChannel = (channel) => ({
     type: SET_CHANNEL,
-    channel
+    channel: channel
 })
 
 const setChannels = (channels) => ({
@@ -38,7 +38,7 @@ export const createChannel = (workspaceId, channelData) => async(dispatch) => {
     if (res.ok) {
         // debugger
         const newChannel = await res.json();
-        dispatch(setChannel(newChannel))
+        dispatch(setChannel(newChannel.channel))
     }
 }
 
@@ -47,6 +47,7 @@ const channelsReducer = (state={}, action) => {
         case SET_CHANNELS:
             return action.payload
         case SET_CHANNEL:
+            console.log(action.channel)
             return { ...state, [action.channel.id]: action.channel }
         default:
             return state

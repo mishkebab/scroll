@@ -8,6 +8,7 @@ import './sideBar.css'
 import { BiSolidDownArrow, BiSolidRightArrow } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import NewChannelModal from "../Channel/NewChannelModal";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
     const dispatch = useDispatch();
@@ -48,8 +49,6 @@ const SideBar = () => {
         return null;
     };
 
-    console.log(dms[0].id)
-
     return (
         <div class="user-sidebar">
             {/* <h1 class="sidebar-workspace-name">{workspace[0].name}</h1> */}
@@ -84,9 +83,11 @@ const SideBar = () => {
                         {dmOpen ? <BiSolidRightArrow /> : <BiSolidDownArrow />}
                         <span class="sidebar-arrow-header">Direct Messages</span>
                     </button>
-                    <button class="sidebar-button-image-container">
-                        <AiOutlinePlus />
-                    </button>
+                    <Link to={`/user/${userId}/${workspaceId}/dms`}>
+                        <button class="sidebar-button-image-container">
+                            <AiOutlinePlus />
+                        </button>
+                    </Link>
                 </div>
                 <ul className="sidebar-menu"> 
                     {dms.map(dm => 
