@@ -9,10 +9,24 @@
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
+    Message.destroy_all
+    DirectMessageSubscription.destroy_all
+    ChannelSubscription.destroy_all
+    DirectMessage.destroy_all
+    Channel.destroy_all
+    WorkspaceSubscription.destroy_all
+    Workspace.destroy_all
     User.destroy_all
   
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
+    ApplicationRecord.connection.reset_pk_sequence!('messages')
+    ApplicationRecord.connection.reset_pk_sequence!('direct_message_subscriptions')
+    ApplicationRecord.connection.reset_pk_sequence!('channel_subscriptions')
+    ApplicationRecord.connection.reset_pk_sequence!('direct_messages')
+    ApplicationRecord.connection.reset_pk_sequence!('channels')
+    ApplicationRecord.connection.reset_pk_sequence!('workspace_subscriptions')
+    ApplicationRecord.connection.reset_pk_sequence!('workspaces')
     ApplicationRecord.connection.reset_pk_sequence!('users')
 
   
