@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchChannel } from "../../store/channels";
 import { fetchDM } from "../../store/dms";
 import "./chat.css"
+import audio from "../../assets/slack-new-message-sound.mp3";
 
 const Chat = () => {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Chat = () => {
     const { channelId } = useParams();
     const { workspaceId } = useParams();
     const { dmId } = useParams();
-    
+
     useEffect(() => {
         if (channelId) {
             dispatch(fetchChannel(workspaceId, channelId))
@@ -59,6 +60,7 @@ const Chat = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        new Audio(audio).play();
         const newMessage = {"message": {content: message, author_id: userId, messageable_type: messageableType, messageable_id: messageableId}}
         dispatch(createMessage(newMessage)).then(() => {
             setMessage('');

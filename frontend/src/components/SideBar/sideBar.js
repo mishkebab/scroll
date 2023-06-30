@@ -45,6 +45,10 @@ const SideBar = () => {
     const channels = useSelector(state => Object.values(state.channels))
     const dms = useSelector(state => Object.values(state.dms))
 
+    if (sessionUser === null) {
+        return null;
+    }
+
     if (dms.length === 0){
         return null;
     };

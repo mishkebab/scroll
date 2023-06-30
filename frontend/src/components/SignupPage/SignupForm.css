@@ -5,6 +5,20 @@
     font-family: Arial;
 }
 
+.signup-logo {
+    margin-top: 50px;
+    margin-bottom: 40px;
+    padding-right: 10px;
+    margin-right: 80px;
+    font-weight: bold;
+    height: 35px;
+    width: 35px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
 .form-heading {
     font-size: 48px;
     margin-bottom: 10px;

@@ -95,7 +95,7 @@ const Channel = () => {
                                     <span class="message-feed-text">{message.content}</span>
                                     <div></div>
                                 </div>
-                                <div class={`user-message-container ${isHidden[message.id] ? '' : 'hidden'} `}>
+                                <div class={`edit-user-message-container ${isHidden[message.id] ? '' : 'hidden'} `}>
                                     <textarea
                                         class={`message-input`}
                                         value={newMessage} 

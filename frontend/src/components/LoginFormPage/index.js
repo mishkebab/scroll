@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import SlackIcon from "./../../assets/slack-icon.png"
 import './loginForm.css'
-import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
 import { useEffect } from 'react';
 
 
@@ -43,10 +43,10 @@ function LoginFormPage() {
     }
 
   return (
-    <>
-      <div id="logo">
-        <SlackSVG/>
-        <h1 id="text-logo">scroll</h1>
+    <div class="form-container">
+      <div class="signup-logo">
+          <img src={SlackIcon} />
+          <span class="slack-logo-name-home">scroll</span>
       </div>
       <div className="form-container">
         <form onSubmit={handleSubmit} id="login-form">
@@ -85,7 +85,7 @@ function LoginFormPage() {
         <span className="span-or">or</span>
         <button className="signup-form-button" onClick={loginDemo}>Try a Demo</button>
       </div>
-    </>
+    </div>
   );
 }
 

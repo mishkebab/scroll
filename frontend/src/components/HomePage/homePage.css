@@ -1,18 +1,34 @@
 .home-page {
     background-color: #4a154b;
     color: white;
-    padding: 12px;
-    height: 92vh;
+    height: 92%;
+}
+
+.slack-logo-home {
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.slack-logo-name-home {
+    padding: 10px;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .splash-page-main {
     display: grid;
-    align-items: flex-start;
+    align-items: center;
     grid-gap: normal;
     justify-content: space-between;
-    grid-template-columns: 48% 48%;
+    grid-template-columns: 40% 48%;
     display: grid;
-    padding: 0 16vw;
+    padding: 0 10vw;
     padding-top: 4rem;
     margin: 0 auto;
     max-width: none;
@@ -22,6 +38,7 @@
     background-color: #4a154b;
     color: white;
     padding: 0 16vw;
+    padding-top: 50px;
 
     /* margin: 0;
     max-width: 100%;
@@ -36,6 +53,7 @@
     width: 100%;
     margin-right: 0;
 }
+
 
 .splash-main-header {
     margin-top: 1.5rem;
@@ -218,8 +236,20 @@
     padding-bottom: 20px;
 }
 
+.try-different-email-link {
+    color: #36c5f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 5px;
+}
 
+.try-different-email-link:hover {
+    text-decoration: underline;
+}
 
-
+.not-seeing-your-workspace {
+    display: flex;
+    justify-content: center;
+}
 
 

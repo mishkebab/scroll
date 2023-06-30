@@ -26,14 +26,14 @@ ApplicationRecord.transaction do
     )
 
     User.create!(
-        display_name: 'Dumbledore',
+        display_name: 'Professor Dumbledore',
         title: 'Headmaster of Hogwarts',
         email: 'dumbledore@hogwarts.edu', 
         password: 'password'
     )
 
     User.create!(
-        display_name: 'Snape',
+        display_name: 'Professor Snape',
         title: 'Professor of Potions',
         email: 'snape@hogwarts.edu', 
         password: 'password'
@@ -50,6 +50,20 @@ ApplicationRecord.transaction do
         display_name: 'Cho Chang',
         title: 'Student',
         email: 'cho@hogwarts.edu', 
+        password: 'password'
+    )
+
+    User.create!(
+        display_name: 'Harry Potter',
+        title: 'Student',
+        email: 'potter@hogwarts.edu', 
+        password: 'password'
+    )
+
+    User.create!(
+        display_name: 'Ron Weasley',
+        title: 'Student',
+        email: 'ron@hogwarts.edu', 
         password: 'password'
     )
 
@@ -95,6 +109,16 @@ ApplicationRecord.transaction do
 
     WorkspaceSubscription.create!(
         user_id: 5,
+        workspace_id: 1
+    )
+
+    WorkspaceSubscription.create!(
+        user_id: 6,
+        workspace_id: 1
+    )
+
+    WorkspaceSubscription.create!(
+        user_id: 7,
         workspace_id: 1
     )
 
@@ -215,6 +239,26 @@ ApplicationRecord.transaction do
         workspace_id: 1
     )
 
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
+    DirectMessage.create!(
+        workspace_id: 1
+    )
+
     puts "Creating DM Conversation Subscriptions..."
 
     DirectMessageSubscription.create!(
@@ -242,6 +286,57 @@ ApplicationRecord.transaction do
         user_id: 5
     )
 
+    DirectMessageSubscription.create!(
+        direct_message_id: 4,
+        user_id: 1
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 4,
+        user_id: 3
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 5,
+        user_id: 1
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 5,
+        user_id: 6
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 6,
+        user_id: 1
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 6,
+        user_id: 7
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 7,
+        user_id: 2
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 7,
+        user_id: 3
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 8,
+        user_id: 2
+    )
+
+    DirectMessageSubscription.create!(
+        direct_message_id: 8,
+        user_id: 5
+    )
+
+
     puts "Creating messages..."
 
     Message.create!(
@@ -268,20 +363,6 @@ ApplicationRecord.transaction do
     Message.create!(
         content: 'hello Hermione we need the Time-Turner back',
         author_id: 2,
-        messageable_type: "DirectMessage",
-        messageable_id: 1
-    )
-
-    Message.create!(
-        content: 'will return ASAP!',
-        author_id: 1,
-        messageable_type: "DirectMessage",
-        messageable_id: 1
-    )
-
-    Message.create!(
-        content: 'will return ASAP!',
-        author_id: 1,
         messageable_type: "DirectMessage",
         messageable_id: 1
     )

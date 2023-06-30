@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import SlackIcon from "./../../assets/slack-icon.png"
 import './SignupForm.css'
 
 function SignupForm() {
@@ -41,6 +42,10 @@ function SignupForm() {
     return (
         <>
             <div class="form-container">
+                <div class="signup-logo">
+                    <img src={SlackIcon} />
+                    <span class="slack-logo-name-home">scroll</span>
+                </div>
                 <h1 class="form-heading">Sign up for Scroll</h1>
                 <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
                 <form class="form-container" onSubmit={handleSubmit}>

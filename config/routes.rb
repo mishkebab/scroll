@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :dms, only: [:index, :show, :create, :update]
     end 
     resources :messages, only: [:index, :show, :create, :update, :destroy]
+    resources :channel_subscriptions, only: [:create, :destroy]
   end
 
   get '*path', to: 'static_pages#frontend'

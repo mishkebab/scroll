@@ -66,8 +66,10 @@ function App() {
           <SignupForm />
         </Route>
         <Route exact path="/">
-          <Navigation />
-          <HomePage />
+          <div class="user-dashboard">
+              <Navigation />
+              <HomePage />
+          </div>
         </Route>
       </Switch>
     </>

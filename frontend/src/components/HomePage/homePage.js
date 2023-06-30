@@ -1,11 +1,11 @@
 import './homePage.css'
 import { useEffect, useState } from 'react';
 import HomePageImage from "./../../assets/sample_homepage.jpeg"
+import HomePageAnimation from "./../../assets/slack-home-page-animation.webm"
 import WelcomeGIF from "./../../assets/welcome-waving.gif"
 import Hogwarts from "./../../assets/harry-potter.jpeg"
 import LondonBus from "./../../assets/london-tower-bridge.jpeg"
 import { useDispatch, useSelector } from 'react-redux'
-import { ReactComponent as SlackSVG } from '../../assets/slack-icon.svg';
 import { Link } from 'react-router-dom';
 import { fetchWorkspaces } from '../../store/workspaces';
 import * as sessionActions from '../../store/session';
@@ -22,8 +22,10 @@ const HomePage = () => {
     const loginDemo = () => {
         dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
+
+    console.log(sessionUser);
     
-    return (sessionUser) ? (
+    return (sessionUser && workspaces) ? (
         <div className="home-page">
             <div className="splash-page-main-logged-in">
                 <div className="splash-main-header-container">
@@ -41,7 +43,7 @@ const HomePage = () => {
                                     </div>
                                     <div class="workspace-info-container">
                                         <span class="workspace-name-main-page">{workspace.name}</span>
-                                        <span class="workspace-info-members-main-page">{workspace.users.length} members</span>
+                                        <span class="workspace-info-members-main-page">{workspace.users?.length} members</span>
                                     </div>
                                     <a className="welcome-user-launch-button" href={`/user/${sessionUser.id}/${workspace.id}`}>Launch Scroll</a>
                                 </li>
@@ -50,6 +52,10 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+            <span class="not-seeing-your-workspace">
+                Not seeing your workspace?  
+                <a href="/login" class="try-different-email-link">Try using a different email...</a>
+            </span>
         </div>
     ) : (
         <div className="home-page">
@@ -71,7 +77,7 @@ const HomePage = () => {
                     </div>
                 </section>
                 <section className="splash-page-main-right">
-                    <img src={HomePageImage} />
+                    <video src={HomePageAnimation} autoPlay loop></video>
                 </section>
             </section>
         </div>
