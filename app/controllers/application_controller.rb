@@ -13,7 +13,6 @@ class ApplicationController < ActionController::API
     end 
 
     def current_user
-        p session[:session_token]
         @current_user || User.find_by(session_token: session[:session_token])
     end 
 
@@ -33,7 +32,6 @@ class ApplicationController < ActionController::API
     end
 
     def require_logged_in
-        p current_user
         if !logged_in?
             render json: {errors: ['Must be logged in to do that']}, status: 401
         end 

@@ -25,9 +25,8 @@ class Api::MessagesController < ApplicationController
                     type: 'RECEIVE_MESSAGE',
                     **from_template('api/messages/show', message: @message)
             end
+            render json: nil, status: :ok
         end
-        
-        render json: nil, status: :ok
     end
 
     def update
@@ -42,12 +41,11 @@ class Api::MessagesController < ApplicationController
                     **from_template('api/messages/show', message: @message)
             else
                 DmChannel.broadcast_to @message.messageable,
-                    type: 'RECEIVE_MESSAGE',
-                    **from_template('api/messages/show', message: @message)
+                type: 'RECEIVE_MESSAGE',
+                **from_template('api/messages/show', message: @message)
             end
+            render json: nil, status: :ok
         end 
-
-        render json: nil, status: :ok
     end
 
     def destroy
