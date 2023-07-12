@@ -1,4 +1,4 @@
-json.workspace do 
+# json.workspace do 
     json.id @workspace.id
     json.name @workspace.name
     json.users @workspace.users do |user|
@@ -8,4 +8,4 @@ json.workspace do
             json.title user.title
         end 
     end 
-end 
+# end 
