@@ -42,7 +42,7 @@ const SideBar = () => {
     
     const sessionUser = useSelector(state => state.session.user)
     const workspace = useSelector(state => Object.values(state.workspaces))
-    console.log(workspace[0].id)
+    // console.log(workspace[0].id)
     const channels = useSelector(state => Object.values(state.session.user.channels))
     // const channels = allUserchannels.filter(channel => channel.workspace_id === workspace[0].workspace.id)
     const dms = useSelector(state => Object.values(state.dms))
