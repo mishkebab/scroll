@@ -19,19 +19,19 @@ const DirectMessage = () => {
     
     const dm = useSelector(state => Object.values(state.dms).filter(dm => dm.id == dmId))
     const messages = useSelector(state => Object.values(state.messages))
-    const sessionUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         const sub = consumer.subscriptions.create(
             { channel: 'DmChannel', id: dmId },
             {
-                received: ({ type, message }) => {
+                received: ({ type, message, id }) => {
                     switch (type) {
                         case 'RECEIVE_MESSAGE':
                             dispatch(setMessage(message));
                             break;
                         case 'DESTROY_MESSAGE':
-                            dispatch(removeMessage(message.id))
+                            console.log(message)
+                            dispatch(removeMessage(id))
                             break;
                         default:
                             console.log('Unhandled broadcast: ', type);
@@ -42,6 +42,8 @@ const DirectMessage = () => {
         )
         return () => sub?.unsubscribe();
     }, [dmId, dispatch])
+
+    const sessionUser = useSelector(state => state.session.user)
 
     const [isHidden, setIsHidden] = useState(false);
     const [newMessage, setNewMessage] = useState('');
@@ -61,8 +63,6 @@ const DirectMessage = () => {
     if (dm.length === 0){
         return null;
     };
-
-    console.log(dm)
 
     return (
         <div class="channel-show">
