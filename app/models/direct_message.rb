@@ -10,8 +10,8 @@
 class DirectMessage < ApplicationRecord
   belongs_to :workspace
 
-  has_many :user_direct_messages,
-    dependent: :destroy
+  # has_many :user_direct_messages,
+  #   dependent: :destroy
 
   has_many :direct_message_subscriptions,
     dependent: :destroy
