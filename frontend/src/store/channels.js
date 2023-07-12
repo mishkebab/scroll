@@ -21,6 +21,12 @@ export const fetchChannel = (workspaceId, channelId) => async(dispatch) => {
     dispatch(setMessages(data.messages))
 }
 
+// export const fetchUserChannels = (workspaceId) => async(dispatch) => {
+//     const res = await csrfFetch(`/api/workspaces/${workspaceId}/channels`)
+//     const data = await res.json()
+//     dispatch(setChannels(data))
+// }
+
 export const fetchChannels = (workspaceId) => async(dispatch) => {
     const res = await csrfFetch(`/api/workspaces/${workspaceId}/channels`)
     const data = await res.json()

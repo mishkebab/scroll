@@ -41,7 +41,7 @@ const ChannelBrowser = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(channelId)
+            body: JSON.stringify(newChannelSub)
         })
     }
 
