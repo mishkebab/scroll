@@ -29,10 +29,10 @@ const NavBarUser = () => {
         <div class="user-nav-bar">
             <ul class="user-nav-bar-icons-menu">
                 <button class="user-nav-bar-icon">
-                    < FaLinkedin />
+                    <a class="user-nav-bar-icon" href="https://www.linkedin.com/in/mishabansal/"><FaLinkedin /></a>
                 </button>
                 <button class="user-nav-bar-icon">
-                    < FaGithub />
+                    <a class="user-nav-bar-icon" href="https://github.com/mishkebab">< FaGithub /></a>
                 </button>
             </ul>
             <div>
