@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import './channelBrowser.css'
 import { useEffect, useState } from "react";
 import { fetchChannels } from "../../store/channels";
 import csrfFetch from "../../store/csrf";
 
+
 const ChannelBrowser = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { userId } = useParams();
@@ -13,27 +15,22 @@ const ChannelBrowser = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [hideSuggestions, setHideSuggestions] = useState(true);
 
-    useEffect(() => {
-            dispatch(fetchChannels(workspaceId))
-    }, [])
-
+    
     const channels = useSelector(state => Object.values(state.channels))
     const sessionUser = useSelector(state => state.session.user)
-
-    // if (sessionUser === null){
-    //     return null;
-    // };
-
     const user_channels = useSelector(state => Object.values(state.session.user.channels))
-
     const user_channel_ids = user_channels.map(channel => channel.id)
 
+    useEffect(() => {
+            dispatch(fetchChannels(workspaceId))
+    }, [sessionUser])
+    
     if (channels.length === 0 || user_channels.length === 0){
         return null;
     };
     // setSuggestions(channels);
     // console.log(channels[0].users.length)
-
+    
     const joinChannel = async (channelId) => {
         const newChannelSub = {"channel_sub": {user_id: userId, channel_id: channelId}}
         await csrfFetch('/api/channel_subscriptions', {
@@ -43,12 +40,14 @@ const ChannelBrowser = () => {
             },
             body: JSON.stringify(newChannelSub)
         })
+        history.push(`/user/${userId}/${workspaceId}/channel/${channelId}`)
     }
 
     const leaveChannel = async (channelId) => {
         await csrfFetch(`/api/channel_subscriptions/${channelId}`, {
             method: "DELETE",
         })
+        history.push(`/user/${userId}/${workspaceId}/`)
     }
 
     return (

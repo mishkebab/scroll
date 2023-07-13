@@ -10,7 +10,7 @@ class Api::ChannelSubscriptionsController < ApplicationController
 
     def destroy
         # debugger
-        @channel_sub = ChannelSubscription.find(user_id: current_user.id, channel_id: params[:id])
+        @channel_sub = ChannelSubscription.find_by(user_id: current_user.id, channel_id: params[:id])
         @channel_sub.destroy 
     end 
 
