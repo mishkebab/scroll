@@ -4,6 +4,8 @@ import './channelBrowser.css'
 import { useEffect, useState } from "react";
 import { fetchChannels } from "../../store/channels";
 import csrfFetch from "../../store/csrf";
+import { setCurrentUserChannels } from "../../store/session";
+import { fetchUserChannel } from "../../store/channels";
 
 
 const ChannelBrowser = () => {
@@ -15,17 +17,18 @@ const ChannelBrowser = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [hideSuggestions, setHideSuggestions] = useState(true);
 
-    
     const channels = useSelector(state => Object.values(state.channels))
     const sessionUser = useSelector(state => state.session.user)
-    const user_channels = useSelector(state => Object.values(state.session.user.channels))
-    const user_channel_ids = user_channels.map(channel => channel.id)
+
+    const ownChannels = channels.filter(channel => Object.values(channel.users).map(user => Object.values(user)[0].id).includes(parseInt(userId)))
+    const ownChannelIds = ownChannels.map(channel => channel.id)
+
 
     useEffect(() => {
             dispatch(fetchChannels(workspaceId))
-    }, [sessionUser])
+    }, [])
     
-    if (channels.length === 0 || user_channels.length === 0){
+    if (channels.length === 0 || ownChannels.length === 0){
         return null;
     };
     // setSuggestions(channels);
@@ -40,6 +43,9 @@ const ChannelBrowser = () => {
             },
             body: JSON.stringify(newChannelSub)
         })
+
+        // dispatch(fetchUserChannel(workspaceId, channelId))
+
         history.push(`/user/${userId}/${workspaceId}/channel/${channelId}`)
     }
 
@@ -47,7 +53,7 @@ const ChannelBrowser = () => {
         await csrfFetch(`/api/channel_subscriptions/${channelId}`, {
             method: "DELETE",
         })
-        history.push(`/user/${userId}/${workspaceId}/`)
+        dispatch(fetchChannels(workspaceId))
     }
 
     return (
@@ -72,7 +78,7 @@ const ChannelBrowser = () => {
                                     <span class="channel-browser-item-subtitle">{channel.users.length} members</span>
                                 </div>
                             </a>
-                            {user_channel_ids.includes(channel.id) ? <button className="message-send-button" onClick={() => leaveChannel(channel.id)}>Leave</button> : <button className="message-send-button" onClick={() => joinChannel(channel.id)}>Join</button>}
+                            {ownChannelIds.includes(channel.id) ? <button className="message-send-button" onClick={() => leaveChannel(channel.id)}>Leave</button> : <button className="message-send-button" onClick={() => joinChannel(channel.id)}>Join</button>}
                         </li>
                 )}
             </ul>

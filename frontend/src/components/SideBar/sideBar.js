@@ -42,8 +42,10 @@ const SideBar = () => {
     
     const sessionUser = useSelector(state => state.session.user)
     const workspace = useSelector(state => Object.values(state.workspaces))
-    const allUserchannels = useSelector(state => Object.values(state.session.user.channels))
+    const channels = useSelector(state => Object.values(state.channels))
     const dms = useSelector(state => Object.values(state.dms))
+
+    const ownChannels = channels.filter(channel => Object.values(channel.users).map(user => Object.values(user)[0].id).includes(parseInt(userId)))
     
     if (sessionUser === null) {
         return null;
@@ -57,8 +59,6 @@ const SideBar = () => {
         return null;
     };
     
-    console.log(workspace[0].id)
-    const channels = allUserchannels.filter(channel => channel.workspace_id === workspace[0].id)
     
     return (
         <div class="user-sidebar">
@@ -72,7 +72,7 @@ const SideBar = () => {
                     <NewChannelModal />
                 </div>
                 <ul className="sidebar-menu"> 
-                        {channels.map(channel => 
+                        {ownChannels.map(channel => 
                             <a class={`sidebar-list-item-container ${channelOpen ? 'hidden' : ''} ${channel.id == channelId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/channel/${channel.id}`}>
                                 <li class="sidebar-list-item">
                                     <span class="sidebar-hashtag">#</span>

@@ -3,9 +3,10 @@ class Api::UsersController < ApplicationController
     
     before_action :require_logged_out
 
-    # def show
-        
-    # end 
+    def show
+        @user = User.find(params[:id])
+        render 'api/users/show'        
+    end 
 
     def create
         # debugger

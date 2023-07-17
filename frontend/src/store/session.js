@@ -1,6 +1,7 @@
 import csrfFetch from './csrf';
 
 const SET_CURRENT_USER = 'session/setCurrentUser';
+const SET_USER_CHANNEL = 'session/setUserSub';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 
 export const setCurrentUser = (user) => {
@@ -17,6 +18,13 @@ const removeCurrentUser = () => {
   };
 };
 
+export const setCurrentUserChannels = (channel) => {
+    return {
+        type: SET_USER_CHANNEL,
+        channel
+    }
+}
+
 const storeCSRFToken = response => {
     const csrfToken = response.headers.get("X-CSRF-Token");
     if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
@@ -25,6 +33,13 @@ const storeCSRFToken = response => {
 const storeCurrentUser = user => {
     if (user) sessionStorage.setItem("currentUser", JSON.stringify(user));
     else sessionStorage.removeItem("currentUser");
+}
+
+export const fetchUser = (userId) => async dispatch => {
+    const response = await csrfFetch(`/api/users/${userId}`);
+    const data = await response.json();
+    dispatch(setCurrentUser(data));
+    return response;
 }
 
 
@@ -81,6 +96,10 @@ const sessionReducer = (state = initialState, action) => {
         return { ...state, user: action.payload };
     case REMOVE_CURRENT_USER:
         return { ...state, user: null };
+    case SET_USER_CHANNEL:
+        const newState = {...state};
+        newState.user.channels[action.channel.id] = action.channel;
+        return newState;
     default:
         return state;
     }

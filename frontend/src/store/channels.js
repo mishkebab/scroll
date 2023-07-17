@@ -1,5 +1,6 @@
 import csrfFetch from "./csrf"
 import { setMessages } from "./messages"
+import { setCurrentUserChannels } from "./session"
 
 const SET_CHANNEL = "channels/setChannel"
 const SET_CHANNELS = "channels/setChannels"
@@ -19,6 +20,12 @@ export const fetchChannel = (workspaceId, channelId) => async(dispatch) => {
     const data = await res.json()
     dispatch(setChannel(data.channel))
     dispatch(setMessages(data.messages))
+}
+
+export const fetchUserChannel = (workspaceId, channelId) => async(dispatch) => {
+    const res = await csrfFetch(`/api/workspaces/${workspaceId}/channels/${channelId}`)
+    const data = await res.json()
+    dispatch(setCurrentUserChannels(data.channel))
 }
 
 // export const fetchUserChannels = (workspaceId) => async(dispatch) => {
