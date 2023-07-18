@@ -46,13 +46,13 @@ const NavBarUser = () => {
                                 <strong class="message-feed-author-initial">{sessionUser.displayName[0]}</strong>
                             </div>
                             <div class="logout-menu-user-information">
-                                <div class="logout-name-header">{sessionUser.displayName}</div>
+                                <strong class="logout-name-header">{sessionUser.displayName}</strong>
                                 <div class="logout-description-header">{sessionUser.title}</div>
                             </div>
                         </div>
-                        <ul class="nav-bar-logout-signup-buttons">
-                            <button className="nav-demo" onClick={logout} id="nav-logout">
-                                Logout
+                        <ul class="sign-out-padding">
+                            <button className="nav-bar-dropdown" onClick={logout}>
+                                Sign out
                             </button>
                         </ul>
                     </div>
@@ -63,11 +63,3 @@ const NavBarUser = () => {
 }
 
 export default NavBarUser
-
-                        // {/* <div class="logout-button-dropdown-container"> */}
-                        // {/* </div> */}
-
-                    //     <Link to="/" onClick={logout}>
-                    //     Log Out
-                    //     <button class="message-send-button logout-button-dropdown" onClick={logout}>Log Out</button>
-                    // </Link>

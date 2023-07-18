@@ -40,24 +40,27 @@
     align-items: left;
     background-color: #19171D;
     right: 10px;
-    border: 1px solid grey;
+    border: 1px solid #36373B;
     width: 250px;
 }
 
 .logout-menu-user-info {
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 20px 0px 10px 20px;
     /* text-align: right; */
 }
 
 .logout-name-header {
+    font-size: 17px;
+    font-weight:900;
     padding-left: 10px;
 }
 
 .logout-description-header {
-    font-size: 13px;
+    font-size: 15px;
     padding-left: 10px;
+    color: #626365;
 }
 
 .logout-button-dropdown-container {
@@ -68,4 +71,16 @@
 
 .logout-button-dropdown {
     width: 92%;
+}
+
+.nav-bar-dropdown {
+    color: #D1D2D3;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.sign-out-padding {
+    padding: 0px 0px 10px 15px;
 }

@@ -62,7 +62,9 @@ const SideBar = () => {
     
     return (
         <div class="user-sidebar">
-            {/* <h1 class="sidebar-workspace-name">{workspace[0].name}</h1> */}
+            <div className="sidebar-workspace-div">
+                <h1 class="sidebar-workspace-name">{workspace[0].name}</h1>
+            </div>
             <div class="sidebar-list">
                 <div class="sidebar-list-header">
                     <button class="sidebar-arrow" onClick={toggleChannelVisibility}>
