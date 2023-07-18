@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import SlackIcon from "./../../assets/slack-icon.png"
 import * as sessionActions from '../../store/session';
-import './navBar.css'
+import './navBar.css';
+import DemoModal from "../DemoModal/DemoModal";
 
 function Navigation() {
     const sessionUser = useSelector(state => state.session.user)
@@ -53,9 +54,7 @@ function Navigation() {
             <ul class="nav-bar-logout-signup-buttons">
                 <a className="nav-bar-link" href="/login">Log in</a>
                 <a id="nav-signup" href="/signup">Sign up Here</a>
-                <Link to="/">
-                    <button className="nav-demo" onClick={loginDemo}>Try a Demo</button>
-                </Link>
+                <DemoModal class="nav-demo"/>
             </ul>
         </div>
     )

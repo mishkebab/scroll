@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { fetchWorkspaces } from '../../store/workspaces';
 import * as sessionActions from '../../store/session';
+import DemoModal from '../DemoModal/DemoModal';
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -22,8 +23,6 @@ const HomePage = () => {
     const loginDemo = () => {
         dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
-
-    console.log(sessionUser);
     
     return (sessionUser && workspaces) ? (
         <div className="home-page">
@@ -72,7 +71,7 @@ const HomePage = () => {
                     Connect the right people, find anything you need and automate the rest. That’s work in Scroll, your productivity platform.
                     </p>
                     <div className="splash-main-buttons">
-                        <button className="splash-main-buttons" id="splash-demo" onClick={loginDemo}>Try A Demo</button>
+                        <DemoModal class="splash-main-buttons splash-demo"/>
                         <a className="splash-main-buttons" id="splash-signup" href="/signup">Sign up Here</a>
                     </div>
                 </section>

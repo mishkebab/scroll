@@ -19,4 +19,7 @@ Scroll's core application is built around the WebSocket Communication Protocol t
 
 <hr/>
 
+# Features
+
+
 

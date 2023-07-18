@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import SlackIcon from "./../../assets/slack-icon.png"
 import './SignupForm.css'
+import DemoModal from '../DemoModal/DemoModal';
 
 function SignupForm() {
     const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function SignupForm() {
                     <button type="submit" class="signup-form-button">Sign up with Email</button>
                 </form>
                 <span class="span-or">or</span>
-                <button class="signup-form-button" onClick={loginDemo}>Try a Demo</button>
+                <DemoModal class="signup-form-button"/>
             </div>
         </>
     )

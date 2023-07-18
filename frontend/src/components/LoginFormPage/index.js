@@ -5,6 +5,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import SlackIcon from "./../../assets/slack-icon.png"
 import './loginForm.css'
 import { useEffect } from 'react';
+import DemoModal from '../DemoModal/DemoModal';
 
 
 function LoginFormPage() {
@@ -83,7 +84,7 @@ function LoginFormPage() {
           <button type="submit" className="signup-form-button">Sign In With Email</button>
         </form>
         <span className="span-or">or</span>
-        <button className="signup-form-button" onClick={loginDemo}>Try a Demo</button>
+        <DemoModal class="signup-form-button"/>
       </div>
     </div>
   );
