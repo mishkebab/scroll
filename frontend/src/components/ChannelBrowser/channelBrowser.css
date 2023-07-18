@@ -61,3 +61,20 @@
     line-height: 1.38463;
     font-weight: 400;
 }
+
+.leave-button {
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    background-color: transparent;
+    margin: 0 0 0 8px;
+    color: #d1d2d3;
+    border: 1px solid #d1d2d3;
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+    margin-bottom: 5px;
+    font-size: 13px;
+    height: 28px;
+    padding: 0 12px 1px;
+    font-weight: 700;
+    border-radius: 4px;
+}

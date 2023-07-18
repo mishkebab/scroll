@@ -78,7 +78,7 @@ const ChannelBrowser = () => {
                                     <span class="channel-browser-item-subtitle">{channel.users.length} members</span>
                                 </div>
                             </a>
-                            {ownChannelIds.includes(channel.id) ? <button className="message-send-button" onClick={() => leaveChannel(channel.id)}>Leave</button> : <button className="message-send-button" onClick={() => joinChannel(channel.id)}>Join</button>}
+                            {ownChannelIds.includes(channel.id) ? <button className="leave-button" onClick={() => leaveChannel(channel.id)}>Leave</button> : <button className="message-send-button" onClick={() => joinChannel(channel.id)}>Join</button>}
                         </li>
                 )}
             </ul>

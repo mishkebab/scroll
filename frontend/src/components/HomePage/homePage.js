@@ -10,8 +10,10 @@ import { Link } from 'react-router-dom';
 import { fetchWorkspaces } from '../../store/workspaces';
 import * as sessionActions from '../../store/session';
 import DemoModal from '../DemoModal/DemoModal';
+import { useHistory } from 'react-router-dom'
 
 const HomePage = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const workspaces = useSelector(state => Object.values(state.workspaces))
@@ -23,6 +25,13 @@ const HomePage = () => {
     const loginDemo = () => {
         dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
+
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout())
+        history.push("/")
+    }
+
     
     return (sessionUser && workspaces) ? (
         <div className="home-page">
@@ -53,7 +62,7 @@ const HomePage = () => {
             </div>
             <span class="not-seeing-your-workspace">
                 Not seeing your workspace?  
-                <a href="/login" class="try-different-email-link">Try using a different email...</a>
+                <button onClick={logout} class="try-different-email-link">Try using a different email...</button>
             </span>
         </div>
     ) : (

@@ -11,6 +11,7 @@ import Chat from './components/Chat/chat';
 import SideBar from './components/SideBar/sideBar';
 import DirectMessage from './components/DirectMessage/dm';
 import DMIndexPage from './components/DirectMessage/dmIndexPage';
+import Splash from './components/Splash/splash';
 import consumer from './consumer';
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <div class="user-dashboard">
               <Navigation />
               <HomePage />
+              <Splash />
           </div>
         </Route>
       </Switch>

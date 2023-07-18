@@ -66,6 +66,8 @@
 
 .sidebar-arrow-header {
     padding: 5px;
+    text-decoration: none;
+    color: #a3a3a6;
 }
 
 .sidebar-button-image-container {
@@ -100,7 +102,7 @@
 .sidebar-list-item {
     font-family: 'Lato', sans-serif;
     display: flex;
-    padding-left: 29px;
+    padding-left: 18px;
     height: 28px;
     line-height: 28px;
     cursor: pointer;
@@ -157,3 +159,20 @@
 /* .hidden {
     display: none !important;
 } */
+
+.sidebar-message-feed-author-image {
+    height: 18px;
+    width: 18px;
+    background-color: lightcoral;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-message-feed-author-initial {
+    color: white;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}

@@ -69,7 +69,7 @@ const SideBar = () => {
                 <div class="sidebar-list-header">
                     <button class="sidebar-arrow" onClick={toggleChannelVisibility}>
                         {channelOpen ? <BiSolidRightArrow /> : <BiSolidDownArrow />}
-                        <span class="sidebar-arrow-header">Channels</span>
+                        <a href={`/user/${userId}/${workspaceId}`} class="sidebar-arrow-header">Channels</a>
                     </button>
                     <NewChannelModal />
                 </div>
@@ -94,7 +94,7 @@ const SideBar = () => {
                 <div class="sidebar-list-header">
                     <button class="sidebar-arrow" onClick={toggleDMVisibility}>
                         {dmOpen ? <BiSolidRightArrow /> : <BiSolidDownArrow />}
-                        <span class="sidebar-arrow-header">Direct Messages</span>
+                        <a href={`/user/${userId}/${workspaceId}/dms`} class="sidebar-arrow-header">Direct Messages</a>
                     </button>
                     <Link to={`/user/${userId}/${workspaceId}/dms`}>
                         <button class="sidebar-button-image-container">
@@ -106,7 +106,9 @@ const SideBar = () => {
                     {dms.map(dm => 
                         <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} ${dm.id == dmId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
-                                <span class="sidebar-hashtag">#</span>
+                            <div class="sidebar-message-feed-author-image">
+                                <strong class="sidebar-message-feed-author-initial">{(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName))[0][0]}</strong>
+                            </div>
                                 <span class={`sidebar-item-name ${dm.id == dmId ? 'selected-blue-channel' : ''}`}>{(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ")}</span>
                             </li>
                         </a>
