@@ -16,26 +16,6 @@ function DemoModal(props) {
     const [description, setDescription] = useState('');
     const [errors, setErrors] = useState([]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setErrors([]);
-        setShowModal(false);
-        const newChannel = {"channel": {name: name, description: description, workspace_id: workspaceId}}
-        return dispatch(createChannel(workspaceId, newChannel))
-            .catch(async (res) => {
-                let data;
-                try {
-                // .clone() essentially allows you to read the response body twice
-                data = await res.clone().json();
-                } catch {
-                data = await res.text(); // Will hit this case if the server is down
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
-    }
-
     const loginDemoOne = () => {
         dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
@@ -51,38 +31,38 @@ function DemoModal(props) {
           <Modal onClose={() => setShowModal(false)}>
             <div className="demo-modal-container">
                 <h1 className="demo-modal-heading">Experience Scroll!</h1>
-                <p className="modal-subheading">
+                <p className="demo-modal-subheading">
                     To get the full Scroll experience, one needs to be logged in to different user accounts that share a workspace at the same time. To do so, follow these steps:
                 </p>
-                <p className="modal-subheading">
-                    1. Open a new incognito window, copy and paste the following url, and navigate to it: 
+                <p className="demo-modal-subheading">
+                    1. Open a new incognito window, copy and paste the following url, and navigate to it: <span className="demo-modal-emphasis">https://misha-scroll-a1d0e552b8c2.herokuapp.com/</span>
                 </p>
-                <p className="modal-subheading">
-                    2. Click on the Demo Login button at the top-right corner of the page and then click the Demo User 2 button at the bottom of the modal
+                <p className="demo-modal-subheading">
+                    2. Click on the <span className="demo-modal-emphasis">Demo Login</span> button at the top-right corner of the page and then click the <span className="demo-modal-emphasis">Demo User 2</span> button at the bottom of the modal
                 </p>
-                <p className="modal-subheading">
-                    3. Click the Launch Scroll button of the Hogwarts workspace
+                <p className="demo-modal-subheading">
+                    3. Click the  <span className="demo-modal-emphasis">Launch Scroll</span> button of the  <span className="demo-modal-emphasis">Hogwarts</span> workspace
                 </p>
-                <p className="modal-subheading">
+                <p className="demo-modal-subheading">
                     4. Open your other non-incognito window
                 </p>
-                <p className="modal-subheading">
-                    5. Click the Demo User 1 button
+                <p className="demo-modal-subheading">
+                    5. Click the  <span className="demo-modal-emphasis">Demo User 1</span> button
                 </p>
-                <p className="modal-subheading">
+                <p className="demo-modal-subheading">
                     6. Repeat step #3
                 </p>
-                <p className="modal-subheading">
+                <p className="demo-modal-subheading">
                     7. Create a live interaction between both user accounts by sending messages to each other
                 </p>
-                <p className="modal-subheading">
-                    Note:
+                <p className="demo-modal-subheading">
+                    <span className="demo-modal-emphasis">Note:</span>
                     <br/>
-                    Only Demo User 1 can create, edit, and delete channels, since it is the owner of the Hogwarts workspace. 
+                    Only <span className="demo-modal-emphasis">Demo User 1</span> can create, edit, and delete channels, since it is the owner of the  <span className="demo-modal-emphasis">Hogwarts</span> workspace. 
                 </p>
-                <div class="modal-buttons">
-                    <button className="modal-send-button" onClick={loginDemoOne}>Demo User One</button>
-                    <button className="modal-send-button" onClick={loginDemoTwo}>Demo User Two</button>
+                <div class="demo-modal-buttons">
+                    <button className="demo-modal-user-button" onClick={loginDemoOne}>Demo User One</button>
+                    <button className="demo-modal-user-button" onClick={loginDemoTwo}>Demo User Two</button>
                 </div>
             </div>
           </Modal>

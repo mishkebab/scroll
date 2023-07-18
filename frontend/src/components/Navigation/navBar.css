@@ -33,7 +33,7 @@
     font-family: Arial;
 }
 
-#nav-signup {
+.nav-signup {
     display: inline-block;
     white-space: nowrap;
     flex-basis: auto;

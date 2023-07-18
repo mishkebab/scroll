@@ -53,7 +53,7 @@ function Navigation() {
             </div>
             <ul class="nav-bar-logout-signup-buttons">
                 <a className="nav-bar-link" href="/login">Log in</a>
-                <a id="nav-signup" href="/signup">Sign up Here</a>
+                <a className="nav-signup" href="/signup">Sign up Here</a>
                 <DemoModal class="nav-demo"/>
             </ul>
         </div>
