@@ -1,4 +1,4 @@
 json.user do
-    json.extract! @user, :id, :email, :title, :display_name, :channels
+    json.extract! @user, :id, :email, :title, :display_name
 end
 

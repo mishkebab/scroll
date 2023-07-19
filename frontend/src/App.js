@@ -45,19 +45,19 @@ function App() {
         <Route path="/user/:userId/:workspaceId/dms">
           <div class="user-dashboard">
             <NavBarUser />
-          <div class="user-dashboard-main">
-            <SideBar />
-            <DMIndexPage />
-          </div>
+            <div class="user-dashboard-main">
+              <SideBar />
+              <DMIndexPage />
+            </div>
           </div>
         </Route>
         <Route path="/user/:userId/:workspaceId">
           <div class="user-dashboard">
             <NavBarUser />
-          <div class="user-dashboard-main">
-            <SideBar />
-            <ChannelBrowser />
-          </div>
+            <div class="user-dashboard-main">
+              <SideBar />
+              <ChannelBrowser />
+            </div>
           </div>
         </Route>
         <Route path="/login">

@@ -5,8 +5,10 @@ import * as sessionActions from '../../store/session';
 import SlackIcon from "./../../assets/slack-icon.png"
 import './SignupForm.css'
 import DemoModal from '../DemoModal/DemoModal';
+import { useHistory } from 'react-router-dom'
 
 function SignupForm() {
+    const history = useHistory()
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
     const [email, setEmail] = useState('')
@@ -22,7 +24,7 @@ function SignupForm() {
         e.preventDefault();
 
         setErrors([]);
-        return dispatch(sessionActions.signup({ email, password, display_name, title }))
+        dispatch(sessionActions.signup({ email, password, display_name, title }))
             .catch(async (res) => {
                 let data;
                 try {
@@ -34,6 +36,8 @@ function SignupForm() {
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
             })
+        
+        history.push("/")
     }
 
     const loginDemo = () => {
