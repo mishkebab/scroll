@@ -21,5 +21,38 @@ Scroll's core application is built around the WebSocket Communication Protocol t
 
 # Features
 
+## Live Chat with WebSocket Communication Protocol
+
+* Logged in users that are subscribed to a specific channel or conversation will receive live updates of the changes that occur in it without having to refresh the page.
+
+## User Authentication:
+
+* Users can create an account and login/logout with their credentials.
+* Users can choose to login with a Demo User account, which will provide them with access to all of the application's features.
+* Users cannot use the application without first logging in.
+* User authentication uses Rails' session object to store in the database a session token to authenticate users after logging in.
+
+## Messages:
+
+* Users can communicate with other users in real time through messages
+* Users can create messages
+* Users can edit their own messages
+* Users can delete their own messages
+
+## Channels:
+
+* Users can create channels
+* Users can join channels that other users have created
+* Users can leave channels
+
+## Direct Message/Conversations: 
+
+* Users can create one-to-one or group direct message conversations with selected team members from the same workspace and chat with them
+
+## Workspaces:
+
+* Users can choose which workspace to work on
+
+<hr/>
 
 

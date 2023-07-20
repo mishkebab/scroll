@@ -17,21 +17,25 @@ const HomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const workspaces = useSelector(state => Object.values(state.workspaces))
+
     
     useEffect(() => {
         dispatch(fetchWorkspaces())
     }, [])
-
+    
     const loginDemo = () => {
         dispatch(sessionActions.login({ email: "hermione@hogwarts.edu", password:"password" }));
     }
-
+    
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout())
         history.push("/")
     }
-
+    
+    if (workspaces.length === 0) {
+        return null;
+    }
     
     return (sessionUser && workspaces) ? (
         <div className="home-page">
