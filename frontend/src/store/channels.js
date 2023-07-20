@@ -60,7 +60,6 @@ const channelsReducer = (state={}, action) => {
         case SET_CHANNELS:
             return action.payload
         case SET_CHANNEL:
-            console.log(action.channel)
             return { ...state, [action.channel.id]: action.channel }
         default:
             return state

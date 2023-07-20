@@ -15,9 +15,6 @@ function LoginFormPage() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-      console.log("render")
-    })
 
     if (sessionUser) return <Redirect to="/" />;
 

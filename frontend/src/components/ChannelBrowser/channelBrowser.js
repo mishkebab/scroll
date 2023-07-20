@@ -32,7 +32,6 @@ const ChannelBrowser = () => {
         return null;
     };
     // setSuggestions(channels);
-    // console.log(channels[0].users.length)
     
     const joinChannel = async (channelId) => {
         const newChannelSub = {"channel_sub": {user_id: userId, channel_id: channelId}}

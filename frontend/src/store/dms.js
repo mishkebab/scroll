@@ -17,7 +17,6 @@ const setDMs = (dms) => ({
 export const fetchDM = (workspaceId, dmId) => async(dispatch) => {
     const res = await csrfFetch(`/api/workspaces/${workspaceId}/dms/${dmId}`)
     const data = await res.json()
-    console.log(data)
     dispatch(setDM(data.dm))
     dispatch(setMessages(data.messages))
 }

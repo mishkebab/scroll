@@ -30,11 +30,9 @@ const DirectMessage = () => {
                             dispatch(setMessage(message));
                             break;
                         case 'DESTROY_MESSAGE':
-                            console.log(message)
                             dispatch(removeMessage(id))
                             break;
                         default:
-                            console.log('Unhandled broadcast: ', type);
                             break;
                     }
                 }
