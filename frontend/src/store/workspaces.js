@@ -21,7 +21,6 @@ const setWorkspace = (workspace) => {
 export const fetchWorkspaces = () => async (dispatch) => {
     const response = await csrfFetch('/api/workspaces/')
     const data = await response.json();
-    console.log(data)
     dispatch(setWorkspaces(data))
 }
 
