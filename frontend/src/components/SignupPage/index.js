@@ -32,12 +32,14 @@ function SignupForm() {
                 } catch {
                     data = await res.text();
                 }
+                if (data?.errors) {
+                    setErrors(data.errors);
+                }
+
                 if (data?.errors) setErrors(data.errors);
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
-            })
-        
-        history.push("/")
+            })      
     }
 
     const loginDemo = () => {
