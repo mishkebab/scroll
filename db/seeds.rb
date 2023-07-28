@@ -388,12 +388,5 @@ ApplicationRecord.transaction do
         messageable_id: 1
     )
 
-    Message.create!(
-        content: 'will return ASAP!',
-        author_id: 1,
-        messageable_type: "DirectMessage",
-        messageable_id: 1
-    )
-
     puts "Done!"
 end

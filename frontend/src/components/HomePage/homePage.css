@@ -1,7 +1,7 @@
 .home-page {
     background-color: #4a154b;
     color: white;
-    height: 60vh;
+    height: 85vh;
 }
 
 .slack-logo-home {
@@ -29,7 +29,6 @@
     grid-template-columns: 40% 48%;
     display: grid;
     padding: 0 10vw;
-    padding-top: 4rem;
     margin: 0 auto;
     max-width: none;
 }

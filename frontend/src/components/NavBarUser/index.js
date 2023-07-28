@@ -52,6 +52,9 @@ const NavBarUser = () => {
                         </div>
                         <ul class="sign-out-padding">
                             <button className="nav-bar-dropdown" onClick={logout}>
+                                View Profile
+                            </button>
+                            <button className="nav-bar-dropdown" onClick={logout}>
                                 Sign out
                             </button>
                         </ul>

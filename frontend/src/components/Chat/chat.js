@@ -60,7 +60,7 @@ const Chat = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        new Audio(audio).play();
+        // new Audio(audio).play();
         const newMessage = {"message": {content: message, author_id: userId, messageable_type: messageableType, messageable_id: messageableId}}
         dispatch(createMessage(newMessage)).then(() => {
             setMessage('');
