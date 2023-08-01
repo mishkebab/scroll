@@ -32,13 +32,8 @@ function SignupForm() {
                 } catch {
                     data = await res.text();
                 }
-                if (data?.errors) {
-                    setErrors(data.errors);
-                }
-
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
+                
+                if (data) setErrors(data);
             })      
     }
 
@@ -57,7 +52,7 @@ function SignupForm() {
                 <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
                 <form class="form-container" onSubmit={handleSubmit}>
                     <ul>
-                        {errors.map(error => <li key={error}>{error}</li>)}
+                        {errors.map(error => <li class="signup-errors">{error}</li>)}
                     </ul>
                     <label>
                         <input class="signup-form-input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@work-email.com" required/>
