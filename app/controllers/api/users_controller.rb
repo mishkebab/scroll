@@ -15,28 +15,30 @@ class Api::UsersController < ApplicationController
         @channel_sub = ChannelSubscription.new
         @channel_sub.channel_id = 1
 
-        @dm = DirectMessage.new
-        @dm.workspace_id = 1
-        @dm.save
-
-        @dm_sub = DirectMessageSubscription.new
-        @dm_sub.direct_message_id = @dm.id
-        @dm_sub.user_id = 2
-        @dm_sub.save
-
-        @dm_sub2 = DirectMessageSubscription.new
-        @dm_sub2.direct_message_id = @dm.id
-
-        @message = Message.new
-        @message.author_id = 2
-        @message.messageable_type = "DirectMessage"
-        @message.messageable_id = @dm.id
-        @message.content = "Welcome to Hogwarts!"
-        @message.save
-
-
+        
+        
         if @user.save
             login!(@user)
+
+            @dm = DirectMessage.new
+            @dm.workspace_id = 1
+            @dm.save
+            
+            @dm_sub = DirectMessageSubscription.new
+            @dm_sub.direct_message_id = @dm.id
+            @dm_sub.user_id = 2
+            @dm_sub.save
+            
+            @dm_sub2 = DirectMessageSubscription.new
+            @dm_sub2.direct_message_id = @dm.id
+            
+            @message = Message.new
+            @message.author_id = 2
+            @message.messageable_type = "DirectMessage"
+            @message.messageable_id = @dm.id
+            @message.content = "Welcome to Hogwarts!"
+            @message.save
+            
             @channel_sub.user_id = current_user.id
             @dm_sub2.user_id = current_user.id
             if @channel_sub.save && @dm_sub2.save

@@ -5,6 +5,14 @@
     font-family: Arial;
 }
 
+.signup-errors-list {
+    margin-bottom: 10px;
+}
+
+.signup-errors {
+    color: red;
+}
+
 .signup-logo {
     margin-top: 50px;
     margin-bottom: 40px;

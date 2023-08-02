@@ -30,10 +30,12 @@ function SignupForm() {
                 try {
                     data = await res.clone().json();
                 } catch {
+                    console.log(res)
                     data = await res.text();
                 }
                 
-                if (data) setErrors(data);
+                if (data?.errors) setErrors(data.errors);
+                else if (data) setErrors(data);
             })      
     }
 
@@ -51,7 +53,7 @@ function SignupForm() {
                 <h1 class="form-heading">Sign up for Scroll</h1>
                 <p class="form-subheading">We suggest using the <strong>email address you use at work.</strong></p>
                 <form class="form-container" onSubmit={handleSubmit}>
-                    <ul>
+                    <ul class="signup-errors-list">
                         {errors.map(error => <li class="signup-errors">{error}</li>)}
                     </ul>
                     <label>

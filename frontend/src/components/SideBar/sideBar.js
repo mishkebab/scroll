@@ -107,7 +107,7 @@ const SideBar = () => {
                         <a class={`sidebar-list-item-container ${dmOpen ? 'hidden' : ''} ${dm.id == dmId ? 'selected-blue-channel' : ''}`} href={`/user/${userId}/${workspaceId}/dm/${dm.id}`}>
                             <li class="sidebar-list-item">
                             <div class="sidebar-message-feed-author-image">
-                                <strong class="sidebar-message-feed-author-initial">{((dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName))[0])}</strong>
+                                <strong class="sidebar-message-feed-author-initial">{((dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName))[0])[0]}</strong>
                             </div>
                                 <span class={`sidebar-item-name ${dm.id == dmId ? 'selected-blue-channel' : ''}`}>{(dm.users.filter(user => user.id !== sessionUser.id).map(user => user.displayName)).join(", ")}</span>
                             </li>
