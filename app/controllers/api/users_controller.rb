@@ -38,7 +38,7 @@ class Api::UsersController < ApplicationController
             @message.messageable_id = @dm.id
             @message.content = "Welcome to Hogwarts!"
             @message.save
-            
+
             @channel_sub.user_id = current_user.id
             @dm_sub2.user_id = current_user.id
             if @channel_sub.save && @dm_sub2.save
@@ -48,6 +48,16 @@ class Api::UsersController < ApplicationController
             render json: @user.errors.full_messages, status: 422
         end
     end 
+
+    def update
+        @user = User.find(params[:id])
+
+        if !@user.update(user_params)
+            render json: @user.errors.full_messages, status: 422
+        else
+            render '/api/users/show'
+        end 
+    end
 
     private
     def user_params

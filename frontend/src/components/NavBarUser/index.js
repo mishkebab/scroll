@@ -1,13 +1,12 @@
 import './navBarUser.css'
-import { Link } from 'react-router-dom'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
 import SlackIcon from "./../../assets/slack-icon.png"
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as sessionActions from '../../store/session';
-import { Redirect } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
+import UserProfileModal from '../UserProfile/UserProfileModal'
 
 const NavBarUser = () => {
     const history = useHistory()
@@ -51,9 +50,7 @@ const NavBarUser = () => {
                             </div>
                         </div>
                         <ul class="sign-out-padding">
-                            <button className="nav-bar-dropdown" onClick={logout}>
-                                View Profile
-                            </button>
+                            <UserProfileModal />
                             <button className="nav-bar-dropdown" onClick={logout}>
                                 Sign out
                             </button>

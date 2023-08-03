@@ -67,6 +67,18 @@ export const signup = ({ email, password, display_name, title }) => async dispat
     return response;
 };
 
+export const update = ({ display_name, title }) => async dispatch => {
+    // debugger
+    const response = await csrfFetch("/api/users", {
+        method: "PATCH",
+        body: JSON.stringify({ display_name, title })
+    });
+    const data = await response.json();
+    storeCurrentUser(data.user);
+    dispatch(setCurrentUser(data.user));
+    return response;
+};
+
 export const logout = () => async dispatch => {
     const response = await csrfFetch("/api/session", {
         method: "DELETE",
