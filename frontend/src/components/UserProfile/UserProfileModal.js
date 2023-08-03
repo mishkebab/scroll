@@ -5,13 +5,15 @@ import { useParams } from "react-router-dom";
 import { createChannel } from "../../store/channels";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 // import './newChannel.css'
 
 function UserProfileModal() {
+    const sessionUser = useSelector(state => state.session.user)
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
-    const [display_name, setDisplayName] = useState('');
-    const [title, setTitle] = useState('');
+    const [display_name, setDisplayName] = useState(sessionUser.displayName);
+    const [title, setTitle] = useState(sessionUser.title);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
