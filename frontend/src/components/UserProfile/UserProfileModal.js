@@ -15,12 +15,13 @@ function UserProfileModal() {
     const [display_name, setDisplayName] = useState(sessionUser.displayName);
     const [title, setTitle] = useState(sessionUser.title);
     const [errors, setErrors] = useState([]);
+    const { userId } = useParams();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
         setShowModal(false);
-        dispatch(sessionActions.update({ display_name, title }))
+        dispatch(sessionActions.update({ userId, display_name, title }))
             .catch(async (res) => {
                 let data;
                 try {
@@ -75,7 +76,7 @@ function UserProfileModal() {
                     </div>
                     <div class="modal-buttons">
                         <button className="modal-send-button" id="modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
-                        <button type="submit" className="modal-send-button" >Create Channel</button>
+                        <button type="submit" className="modal-send-button" >Update Profile</button>
                     </div>
                 </form>
             </div>

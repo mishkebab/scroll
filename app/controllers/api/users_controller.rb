@@ -1,7 +1,7 @@
 class Api::UsersController < ApplicationController
     wrap_parameters include: User.attribute_names + ['password']
     
-    before_action :require_logged_out
+    before_action :require_logged_out, only: [:create]
 
     def show
         @user = User.find(params[:id])
