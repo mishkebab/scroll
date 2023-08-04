@@ -7,11 +7,15 @@ import { editMessage, removeMessage, setMessage } from "../../store/messages";
 import { deleteMessage } from "../../store/messages";
 import consumer from "../../consumer";
 import { IoIosArrowDown } from "react-icons/io"
+import { Modal } from "../../context/Modal";
+import { RxCross2 } from "react-icons/rx"
+
 
 const Channel = () => {
     const dispatch = useDispatch();
     const { workspaceId } = useParams();
     const { channelId } = useParams();
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         dispatch(fetchChannel(workspaceId, channelId))
@@ -20,6 +24,7 @@ const Channel = () => {
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const messages = useSelector(state => Object.values(state.messages))
 
+    // console.log(Object.values(channel[0].users))
 
     useEffect(() => {
         const sub = consumer.subscriptions.create(
@@ -65,6 +70,8 @@ const Channel = () => {
         return null;
     };
 
+    const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
+
     return (
         <div class="channel-show">
             <div class="channel-header">
@@ -75,7 +82,32 @@ const Channel = () => {
                     </button>
                     <span class="channel-description">{channel[0].description}</span>
                 </div>
-                <button class="channel-members-button">{channel[0].users.length} members</button>
+                <button class="channel-members-button" onClick={() => setShowModal(true)}>{channel[0].users.length} members</button>
+                {showModal && (
+                    <Modal onClose={() => setShowModal(false)}>
+                        <div className="modal-container modal-alignment">
+                            <div class="channel-name channel-modal-header">
+                                <h1 class="channel-name-header">#{channel[0].name}</h1>
+                                <button class="channel-modal-close" onClick={() => setShowModal(false)}>
+                                    < RxCross2 />
+                                </button>
+                            </div>
+                            <div className="channel-members-modal">
+                                {channelUsers.map(user => 
+                                <div class="channel-menu-user-info ">
+                                    <div class="message-feed-author-image channel-user-menu-initial">
+                                            <strong class="message-feed-author-initial">{user.displayName[0]}</strong>
+                                    </div>
+                                    <div>
+                                        <strong class="logout-name-header">{user.displayName}</strong>
+                                        <div class="logout-description-header">{user.title}</div>
+                                    </div>
+                                </div>
+                                )}
+                            </div>
+                        </div>
+                    </Modal>
+                )}
             </div>
             <ul class="message-feed-list">
                 {messages.map(message => 
