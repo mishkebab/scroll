@@ -9,6 +9,8 @@ import consumer from "../../consumer";
 import { IoIosArrowDown } from "react-icons/io"
 import { Modal } from "../../context/Modal";
 import { RxCross2 } from "react-icons/rx"
+import csrfFetch from "../../store/csrf";
+import Select from 'react-select';
 
 
 const Channel = () => {
@@ -16,10 +18,14 @@ const Channel = () => {
     const { workspaceId } = useParams();
     const { channelId } = useParams();
     const [showModal, setShowModal] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
 
     useEffect(() => {
         dispatch(fetchChannel(workspaceId, channelId))
     }, [dispatch, channelId])
+
+
     
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const messages = useSelector(state => Object.values(state.messages))
@@ -48,7 +54,6 @@ const Channel = () => {
         return () => sub?.unsubscribe();
     }, [channelId, dispatch])
 
-    // const { userId } = useParams();
     const sessionUser = useSelector(state => state.session.user)
 
     const [isHidden, setIsHidden] = useState(false);
@@ -61,22 +66,50 @@ const Channel = () => {
         }))
     };
 
+    const names = async() => {
+        const response = await csrfFetch('/api/users');
+
+        setUsers(await response.json())
+    }
+
+    useEffect(() => {
+        names()
+    }, [])
+
+    const joinChannel = async () => {
+        const newChannelSub = {"channel_sub": {user_id: searchInput.value, channel_id: channelId}}
+        await csrfFetch('/api/channel_subscriptions', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newChannelSub)
+        })
+
+        // dispatch(fetchUserChannel(workspaceId, channelId))
+
+        // history.push(`/user/${userId}/${workspaceId}/channel/${channelId}`)
+    }
+
     const handleSubmit = (messageId) => {
         const updatedMessage = {id: messageId, content: newMessage}
         dispatch(editMessage(updatedMessage))
     }
 
+    
     if (channel.length === 0){
         return null;
     };
-
+    
     const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
+
+    console.log(searchInput.value)
 
     return (
         <div class="channel-show">
             <div class="channel-header">
                 <div class="channel-subheader">
-                    <button class="channel-name">
+                    <button class="channel-name" onClick={() => setShowModal(true)}>
                         <h1 class="channel-name-header"># {channel[0].name}</h1>
                         < IoIosArrowDown />
                     </button>
@@ -85,7 +118,7 @@ const Channel = () => {
                 <button class="channel-members-button" onClick={() => setShowModal(true)}>{channel[0].users.length} members</button>
                 {showModal && (
                     <Modal onClose={() => setShowModal(false)}>
-                        <div className="modal-container modal-alignment">
+                        <div className="channel-members-modal-container modal-alignment">
                             <div class="channel-name channel-modal-header">
                                 <h1 class="channel-name-header">#{channel[0].name}</h1>
                                 <button class="channel-modal-close" onClick={() => setShowModal(false)}>
@@ -93,16 +126,36 @@ const Channel = () => {
                                 </button>
                             </div>
                             <div className="channel-members-modal">
+                                <button class="channel-menu-user-info add-person-button">
+                                    <div class="message-feed-author-image add-person-initial">
+                                            <strong class="message-feed-author-initial">+</strong>
+                                    </div>
+                                    <div>
+                                        <strong class="channel-member-display-name">Add User to Channel</strong>
+                                    </div>
+                                </button>
+                                <div>
+                                    <form >
+                                        <h1 className="modal-heading">Add User</h1>
+                                        <Select options={users} onChange={setSearchInput}/>
+                                        <div class="modal-buttons">
+                                            <button className="modal-send-button" id="modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
+                                            <button type="submit" className="modal-send-button" onClick={joinChannel}>Add User</button>
+                                        </div>
+                                    </form>
+                                </div>
                                 {channelUsers.map(user => 
+                                <>
                                 <div class="channel-menu-user-info ">
                                     <div class="message-feed-author-image channel-user-menu-initial">
                                             <strong class="message-feed-author-initial">{user.displayName[0]}</strong>
                                     </div>
                                     <div>
-                                        <strong class="logout-name-header">{user.displayName}</strong>
-                                        <div class="logout-description-header">{user.title}</div>
+                                        <strong class="channel-member-display-name">{user.displayName}</strong>
+                                        <div class="channel-member-description">{user.title}</div>
                                     </div>
                                 </div>
+                                </>
                                 )}
                             </div>
                         </div>

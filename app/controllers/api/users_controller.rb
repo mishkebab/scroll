@@ -3,6 +3,11 @@ class Api::UsersController < ApplicationController
     
     before_action :require_logged_out, only: [:create]
 
+    def index
+        @users = User.all
+        render 'api/users/index'
+    end 
+
     def show
         @user = User.find(params[:id])
         render 'api/users/show'        
