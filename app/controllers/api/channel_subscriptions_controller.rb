@@ -1,7 +1,6 @@
 class Api::ChannelSubscriptionsController < ApplicationController
     def create
         @channel_sub = ChannelSubscription.new(channel_sub_params)
-        @channel_sub.user = current_user
 
         if !@channel_sub.save
             render json: @channel_sub.errors.full_messages, status: 422

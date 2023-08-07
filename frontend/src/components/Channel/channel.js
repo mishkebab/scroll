@@ -76,15 +76,22 @@ const Channel = () => {
         names()
     }, [])
 
+    const userId = searchInput.value
+    console.log(typeof parseInt(userId));
+
     const joinChannel = async () => {
-        const newChannelSub = {"channel_sub": {user_id: searchInput.value, channel_id: channelId}}
+        const userId = searchInput.value
+        console.log(userId);
+        const newChannelSub = {"channel_sub": {user_id: userId, channel_id: channelId}}
         await csrfFetch('/api/channel_subscriptions', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newChannelSub)
-        })
+    })
+
+
 
         // dispatch(fetchUserChannel(workspaceId, channelId))
 
@@ -100,10 +107,37 @@ const Channel = () => {
     if (channel.length === 0){
         return null;
     };
+
+    const customStyles = {
+        control: (base, state) => ({
+            ...base,
+            background: "transparent",
+            // match with the menu
+            borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+            // Overwrittes the different states of border
+            borderColor: state.isFocused ? "#a3a3a6" : "#a3a3a6",
+            // Removes weird border around container
+            boxShadow: state.isFocused ? null : null,
+            "&:hover": {
+            // Overwrittes the different states of border
+            borderColor: state.isFocused ? "green" : "green"
+            }
+        }),
+        menu: base => ({
+            ...base,
+            // override border radius to match the box
+            borderRadius: 0,
+            // kill the gap
+            marginTop: 0
+        }),
+        menuList: base => ({
+            ...base,
+            // kill the white space on first and last option
+            padding: 0
+        })
+        };
     
     const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
-
-    console.log(searchInput.value)
 
     return (
         <div class="channel-show">
@@ -134,10 +168,12 @@ const Channel = () => {
                                         <strong class="channel-member-display-name">Add User to Channel</strong>
                                     </div>
                                 </button>
-                                <div>
+                                <div className="add-user-div">
                                     <form >
-                                        <h1 className="modal-heading">Add User</h1>
-                                        <Select options={users} onChange={setSearchInput}/>
+                                        <h1 className="add-user-heading">Add User</h1>
+                                        <div class="search-bar-add-user">
+                                            <Select styles={customStyles} options={users} onChange={setSearchInput}/>
+                                        </div>
                                         <div class="modal-buttons">
                                             <button className="modal-send-button" id="modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
                                             <button type="submit" className="modal-send-button" onClick={joinChannel}>Add User</button>

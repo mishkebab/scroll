@@ -20,8 +20,6 @@ class Api::UsersController < ApplicationController
         @channel_sub = ChannelSubscription.new
         @channel_sub.channel_id = 1
 
-        
-        
         if @user.save
             login!(@user)
 
