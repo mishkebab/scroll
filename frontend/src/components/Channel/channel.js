@@ -125,14 +125,11 @@ const Channel = () => {
         //     const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
         // }
         const channelUserIds = channelUsers.map(user => user.id)
-        console.log(channelUserIds)
         const filteredUsers = allUsers.filter(user => !channelUserIds.includes(user.value))
-        console.log(filteredUsers)
         setUsers(filteredUsers)
     }
     
     useEffect(() => {
-        console.log(channel)
         if(channel.length > 0) {
             names()
         }

@@ -30,7 +30,6 @@ function SignupForm() {
                 try {
                     data = await res.clone().json();
                 } catch {
-                    console.log(res)
                     data = await res.text();
                 }
                 
