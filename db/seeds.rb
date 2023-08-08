@@ -352,37 +352,51 @@ ApplicationRecord.transaction do
 
 
     puts "Creating messages..."
-
+    
     Message.create!(
-        content: 'yo this is Snape',
-        author_id: 3,
+        content: 'Hi all! Welcome to a new school year at Hogwarts!',
+        author_id: 2,
         messageable_type: "Channel",
-        messageable_id: 2
+        messageable_id: 1
     )
 
     Message.create!(
-        content: 'yo this is Hermione',
+        content: 'I can teach you how to bottle fame, brew glory, even stopper death...',
+        author_id: 3,
+        messageable_type: "Channel",
+        messageable_id: 1
+    )
+
+    Message.create!(
+        content: "What should we do if we've already finished all our coursework for this semester?",
         author_id: 1,
         messageable_type: "Channel",
         messageable_id: 1
     )
 
     Message.create!(
-        content: 'hi H - this is dumbledore',
-        author_id: 2,
+        content: "Anyone down for a game of chess in the common room tonight?",
+        author_id: 7,
         messageable_type: "Channel",
-        messageable_id: 1
+        messageable_id: 2
     )
 
     Message.create!(
-        content: 'hello Hermione we need the Time-Turner back',
+        content: "I would but Professor Umbridge gave me detention again...",
+        author_id: 6,
+        messageable_type: "Channel",
+        messageable_id: 2
+    )
+
+    Message.create!(
+        content: 'Hermione - please come to my office ASAP to discuss your advanced course load',
         author_id: 2,
         messageable_type: "DirectMessage",
         messageable_id: 1
     )
 
     Message.create!(
-        content: 'will return ASAP!',
+        content: 'OK will do Professor!',
         author_id: 1,
         messageable_type: "DirectMessage",
         messageable_id: 1

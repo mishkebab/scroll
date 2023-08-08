@@ -25,12 +25,8 @@ const Channel = () => {
         dispatch(fetchChannel(workspaceId, channelId))
     }, [dispatch, channelId])
 
-
-    
     const channel = useSelector(state => Object.values(state.channels).filter(channel => channel.id == channelId))
     const messages = useSelector(state => Object.values(state.messages))
-
-    // console.log(Object.values(channel[0].users))
 
     useEffect(() => {
         const sub = consumer.subscriptions.create(
@@ -66,22 +62,10 @@ const Channel = () => {
         }))
     };
 
-    const names = async() => {
-        const response = await csrfFetch('/api/users');
-
-        setUsers(await response.json())
-    }
-
-    useEffect(() => {
-        names()
-    }, [])
-
-    const userId = searchInput.value
-    console.log(typeof parseInt(userId));
+    const [addUser, setAddUser] = useState(false)
 
     const joinChannel = async () => {
         const userId = searchInput.value
-        console.log(userId);
         const newChannelSub = {"channel_sub": {user_id: userId, channel_id: channelId}}
         await csrfFetch('/api/channel_subscriptions', {
             method: "POST",
@@ -89,9 +73,9 @@ const Channel = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newChannelSub)
-    })
+        })
 
-
+        setShowModal(false)
 
         // dispatch(fetchUserChannel(workspaceId, channelId))
 
@@ -103,19 +87,16 @@ const Channel = () => {
         dispatch(editMessage(updatedMessage))
     }
 
-    
-    if (channel.length === 0){
-        return null;
-    };
 
     const customStyles = {
         control: (base, state) => ({
             ...base,
             background: "transparent",
+            color: "rgb(209, 210, 211)",
             // match with the menu
             borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
             // Overwrittes the different states of border
-            borderColor: state.isFocused ? "#a3a3a6" : "#a3a3a6",
+            borderColor: state.isFocused ? "rgb(209, 210, 211)" : "rgb(209, 210, 211)",
             // Removes weird border around container
             boxShadow: state.isFocused ? null : null,
             "&:hover": {
@@ -133,9 +114,34 @@ const Channel = () => {
         menuList: base => ({
             ...base,
             // kill the white space on first and last option
-            padding: 0
+            padding: 0,
         })
         };
+
+    const names = async() => {
+        const response = await csrfFetch('/api/users');
+        const allUsers = await response.json()
+        // if(channel.length != 0) {
+        //     const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
+        // }
+        const channelUserIds = channelUsers.map(user => user.id)
+        console.log(channelUserIds)
+        const filteredUsers = allUsers.filter(user => !channelUserIds.includes(user.value))
+        console.log(filteredUsers)
+        setUsers(filteredUsers)
+    }
+    
+    useEffect(() => {
+        console.log(channel)
+        if(channel.length > 0) {
+            names()
+        }
+    }, [channel[0]])
+    
+
+    if (channel.length === 0){ 
+        return null;
+    };
     
     const channelUsers = Object.values(channel[0].users).map(user => Object.values(user)[0])
 
@@ -165,18 +171,18 @@ const Channel = () => {
                                             <strong class="message-feed-author-initial">+</strong>
                                     </div>
                                     <div>
-                                        <strong class="channel-member-display-name">Add User to Channel</strong>
+                                        <strong class="channel-member-display-name" onClick={() => setAddUser(true)}>Add User to Channel</strong>
                                     </div>
                                 </button>
-                                <div className="add-user-div">
+                                <div className={`add-user-div ${addUser ? '' : 'hidden'}`}>
                                     <form >
                                         <h1 className="add-user-heading">Add User</h1>
                                         <div class="search-bar-add-user">
                                             <Select styles={customStyles} options={users} onChange={setSearchInput}/>
                                         </div>
-                                        <div class="modal-buttons">
-                                            <button className="modal-send-button" id="modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
-                                            <button type="submit" className="modal-send-button" onClick={joinChannel}>Add User</button>
+                                        <div class="add-user-buttons">
+                                            <button className="add-user-send-button" id="add-user-cancel-button" onClick={() => setAddUser(false)}>Cancel</button>
+                                            <button type="submit" className="add-user-send-button" onClick={joinChannel}>Add User</button>
                                         </div>
                                     </form>
                                 </div>
