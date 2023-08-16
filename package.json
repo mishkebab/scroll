@@ -1,7 +1,7 @@
 {
-  "name": "slack_clone",
+  "name": "scroll",
   "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "description": "description of app.",
   "main": "index.js",
   "directories": {
     "lib": "lib"
