@@ -2,7 +2,7 @@
 
 Scroll, a clone of the popular messaging app Slack, allows users from a workspace to live chat with each other through direct messages or through channels. 
 
-<a href="google.com">Live Site</a>
+<a href="https://misha-scroll-a1d0e552b8c2.herokuapp.com/" target="_blank" >Live Site</a>
 
 <hr/>
 
