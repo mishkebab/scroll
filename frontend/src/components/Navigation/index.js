@@ -29,7 +29,7 @@ function Navigation() {
                 <ul>
                     <a className="nav-bar-link" href="https://www.linkedin.com/in/mishabansal/" target="_blank">LinkedIn</a>
                     <a className="nav-bar-link" href="https://github.com/mishkebab" target="_blank">GitHub</a>
-                    <a className="nav-bar-link" href="https://www.google.com" target="_blank">Portfolio</a>
+                    <a className="nav-bar-link" href="https://www.mishabansal.com" target="_blank">Portfolio</a>
                 </ul>
             </div>
             <ul class="nav-bar-logout-signup-buttons">
